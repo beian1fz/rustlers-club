@@ -544,6 +544,144 @@
             }
         }
         
+        /* Sign Up Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background: rgba(212, 175, 55, 0.3);
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .modal-header h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .modal-header p {
+            color: #999;
+            font-size: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #d4af37;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .form-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a1a1a;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        .form-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .form-message {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .form-message.success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        .form-message.error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+        
         /* Loading animation */
         @keyframes pulse {
             0%, 100% { opacity: 0.6; }
@@ -565,10 +703,10 @@
             <div class="nav-links">
                 <a href="/">Home</a>
                 <a href="https://rustlersclub.cardopz.com/" target="_blank">Games</a>
-                <a href="https://rustlersclub.cardopz.com/" target="_blank">Tournaments</a>
+                <a href="https://rustlersclub.cardopz.com/" target="_blank">Tournament Schedule</a>
                 <a href="/membership">Membership</a>
                 <a href="#about">About</a>
-                <a href="https://rustlersclub.cardopz.com/" target="_blank" class="cta-button">Play Now</a>
+                <a href="/" class="play-now-btn cta-button">Sign Up</a>
             </div>
             <div class="mobile-menu-toggle">
                 <span></span>
@@ -628,8 +766,13 @@
             </a>
             <a href="https://rustlersclub.cardopz.com/" target="_blank" class="access-card">
                 <span class="access-icon">⏰</span>
-                <h3>Tournament Clocks</h3>
-                <p>View live tournament clocks, blinds, and player counts</p>
+                <h3>Tournament Schedule</h3>
+                <p>View the next 7 days of tournaments, start times, and buy-ins</p>
+            </a>
+            <a href="https://rustlersclub.cardopz.com/" target="_blank" class="access-card">
+                <span class="access-icon">⏱️</span>
+                <h3>Live Tournament Info</h3>
+                <p>Check tournament clocks, blinds, and player counts during events</p>
             </a>
             <a href="https://rustlersclub.cardopz.com/" target="_blank" class="access-card">
                 <span class="access-icon">🎁</span>
@@ -757,9 +900,9 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <a href="https://rustlersclub.cardopz.com/" target="_blank">Live Games</a>
-                <a href="https://rustlersclub.cardopz.com/" target="_blank">Tournament Schedule</a>
+                <a href="https://rustlersclub.cardopz.com/" target="_blank">7-Day Tournament Schedule</a>
                 <a href="/membership">Membership Info</a>
-                <a href="/bullseye-tournament">Bullseye Tournament</a>
+                <a href="/bullseye-tournament">June 8th Bullseye Tournament</a>
                 <a href="/careers">Careers</a>
                 <a href="https://rustlersclub.cardopz.com/" target="_blank">Promotions</a>
             </div>
@@ -797,6 +940,33 @@
         </div>
     </footer>
 
+    <!-- Sign Up Modal -->
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <h2><span class="gold">Get Started</span></h2>
+                <p>Sign up now and we'll send you a link to complete your membership</p>
+            </div>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                </div>
+                <button type="submit" class="form-submit">Send Me Sign Up Link</button>
+                <div id="formMessage"></div>
+            </form>
+        </div>
+    </div>
+
     <script>
         // Mobile menu toggle
         const mobileToggle = document.querySelector('.mobile-menu-toggle');
@@ -828,6 +998,85 @@
                 header.style.background = 'rgba(26, 26, 26, 0.98)';
             } else {
                 header.style.background = 'rgba(26, 26, 26, 0.95)';
+            }
+        });
+        
+        // Modal functionality
+        const modal = document.getElementById('signupModal');
+        const playNowButtons = document.querySelectorAll('.play-now-btn');
+        
+        playNowButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal();
+            });
+        });
+        
+        function openModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById('formMessage').innerHTML = '';
+        }
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Form submission
+        const signupForm = document.getElementById('signupForm');
+        const formMessage = document.getElementById('formMessage');
+        
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitButton = signupForm.querySelector('.form-submit');
+            const originalText = submitButton.textContent;
+            
+            // Disable button and show loading
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value
+            };
+            
+            try {
+                const response = await fetch('/api/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    formMessage.className = 'form-message success';
+                    formMessage.innerHTML = '✓ Success! Check your email for the sign-up link.';
+                    signupForm.reset();
+                    
+                    // Close modal after 3 seconds
+                    setTimeout(() => {
+                        closeModal();
+                    }, 3000);
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch (error) {
+                formMessage.className = 'form-message error';
+                formMessage.innerHTML = '✗ Something went wrong. Please try again or call us at (210) 957-1550';
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
             }
         });
     </script>
