@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
   // Format the data for email
   const emailContent = {
-    to: 'your-email@rustlersclub.com', // CHANGE THIS to your actual email
+    to: 'info@rustlersclub.com', // CHANGE THIS to your actual email
     from: 'noreply@rustlersclub.com', // CHANGE THIS to your verified sender email
     subject: 'New Rustlers Club Sign Up Request',
     html: `
