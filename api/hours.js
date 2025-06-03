@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   try {
     // Option 1: Google Places API (Requires API Key)
     const GOOGLE_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
-    const PLACE_ID = process.env.GOOGLE_PLACE_ID || 'ChIJYourPlaceIdHere'; // Find your Place ID
+    const PLACE_ID = process.env.GOOGLE_PLACE_ID || 'ChIJtUcGE4hdXIYRXSONnFBgbMA';
     
     if (GOOGLE_API_KEY) {
       const response = await fetch(
