@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership | Rustlers Club</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        /* Header (same as homepage) */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+        
+        .logo {
+            height: 50px;
+            cursor: pointer;
+        }
+        
+        .logo img {
+            height: 100%;
+            width: auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #d4af37;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a1a1a;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* Hero Section */
+        .membership-hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pattern-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.02) 35px, rgba(255,255,255,.02) 70px);
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-content h1 {
+            font-size: clamp(40px, 8vw, 64px);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        
+        .gold {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-content p {
+            font-size: 20px;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+        
+        /* Membership Options */
+        .membership-options {
+            padding: 80px 20px;
+            background: #0f0f0f;
+        }
+        
+        .options-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .membership-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .membership-card.featured {
+            border-color: #d4af37;
+            transform: scale(1.05);
+        }
+        
+        .membership-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a1a1a;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .membership-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+        
+        .membership-card.featured:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+        
+        .card-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .card-title {
+            font-size: 28px;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+        
+        .card-price {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .card-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        
+        .card-features li {
+            padding: 10px 0;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-features li::before {
+            content: '✓';
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        /* Benefits Section */
+        .benefits-section {
+            padding: 80px 20px;
+            background: #1a1a1a;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .benefit-item {
+            text-align: center;
+            padding: 30px;
+            background: rgba(26, 26, 26, 0.5);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .benefit-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #d4af37;
+        }
+        
+        .benefit-item h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #d4af37;
+        }
+        
+        .benefit-item p {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        /* How to Join */
+        .how-to-join {
+            padding: 80px 20px;
+            background: #0f0f0f;
+        }
+        
+        .steps-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(26, 26, 26, 0.5);
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a1a1a;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+        
+        .step-content p {
+            color: #ccc;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .cta-content h2 {
+            color: #1a1a1a;
+            font-size: clamp(28px, 5vw, 40px);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .cta-content p {
+            color: #1a1a1a;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-dark {
+            background: #1a1a1a;
+            color: #d4af37;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .cta-dark:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 60px 20px 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            color: #666;
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .membership-card.featured {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">
+                    <img src="placeholder-logo.png" alt="Rustlers Club" style="height: 50px; background: #d4af37; padding: 10px; border-radius: 8px;">
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="https://rustlersclub.cardopz.com/" target="_blank">Games</a>
+                <a href="https://rustlersclub.cardopz.com/" target="_blank">Tournament Schedule</a>
+                <a href="/membership">Membership</a>
+                <a href="/#about">About</a>
+                <a href="https://rustlersclub.cardopz.com/" target="_blank" class="cta-button">Sign Up Online</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="membership-hero">
+        <div class="pattern-overlay"></div>
+        <div class="hero-content">
+            <h1>Become a <span class="gold">Member</span></h1>
+            <p>Join San Antonio's premier private social gaming club and experience the best in poker, custom table games, and entertainment.</p>
+            <a href="https://rustlersclub.cardopz.com/" target="_blank" class="cta-button">Join Online Now</a>
+        </div>
+    </section>
+
+    <!-- Membership Options -->
+    <section class="membership-options">
+        <div class="options-container">
+            <div class="section-header">
+                <h2>Membership Options</h2>
+            </div>
+            <div class="options-grid">
+                <div class="membership-card featured">
+                    <span class="card-icon">🎮</span>
+                    <h3 class="card-title">Daily Membership</h3>
+                    <div class="card-price">$10</div>
+                    <ul class="card-features">
+                        <li>Full access to all games</li>
+                        <li>NO time charges on any games</li>
+                        <li>Complimentary food & drinks</li>
+                        <li>Tournament eligibility</li>
+                        <li>Digital player card</li>
+                        <li>Member promotions</li>
+                    </ul>
+                    <a href="https://rustlersclub.cardopz.com/" target="_blank" class="cta-button">Get Started</a>
+                </div>
+                
+                <div class="membership-card">
+                    <span class="card-icon">🎖️</span>
+                    <h3 class="card-title">Military & First Responders</h3>
+                    <div class="card-price">FREE</div>
+                    <ul class="card-features">
+                        <li>Complimentary first membership</li>
+                        <li>Point matching on first visit</li>
+                        <li>All standard member benefits</li>
+                        <li>Special appreciation events</li>
+                        <li>Priority seating available</li>
+                        <li>Thank you for your service!</li>
+                    </ul>
+                    <a href="https://rustlersclub.cardopz.com/" target="_blank" class="cta-button">Claim Offer</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="section-header">
+            <h2>Member Benefits</h2>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <div class="benefit-icon">⏰</div>
+                <h3>No Time Charges</h3>
+                <p>Play as long as you want with zero hourly fees on any game</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🍔</div>
+                <h3>Free Food & Drinks</h3>
+                <p>Complimentary snacks, soft drinks, and beer for all members</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🏆</div>
+                <h3>Tournament Access</h3>
+                <p>Exclusive entry to member-only tournaments and special events</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">💰</div>
+                <h3>Biggest Jackpots</h3>
+                <p>Access to San Antonio's largest progressive jackpots</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🎯</div>
+                <h3>Exclusive Games</h3>
+                <p>Play our custom games like TX Bullseye and Ultimate SA Hold'em</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">💳</div>
+                <h3>Digital Tracking</h3>
+                <p>Track your play and points with our digital player card system</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🎁</div>
+                <h3>Member Promotions</h3>
+                <p>Special bonuses and promotions exclusive to members</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">❤️</div>
+                <h3>Give Back</h3>
+                <p>Part of your membership supports local San Antonio charities</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Join -->
+    <section class="how-to-join">
+        <div class="section-header">
+            <h2>How to Join</h2>
+        </div>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Online or In-Person</h3>
+                    <p>Sign up online at rustlersclub.cardopz.com or visit us at 6436 NW Loop 410. Online signup saves time!</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Bring Valid ID</h3>
+                    <p>Must be 21+ with a valid government-issued ID. We verify all members for security and compliance.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Pay Membership Fee</h3>
+                    <p>Just $10 for daily membership with full access to all games and amenities. Military/First Responders get free first day!</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Load Your Points</h3>
+                    <p>Purchase points to play games. Points are tracked digitally on your member card for convenience and security.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>Start Playing!</h3>
+                    <p>Choose from poker, custom table games, or skill-based slots. No time charges mean you can play at your own pace.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Experience the Best?</h2>
+            <p>Join thousands of members enjoying San Antonio's premier social gaming experience</p>
+            <div class="cta-buttons">
+                <a href="https://rustlersclub.cardopz.com/" target="_blank" class="cta-dark">Join Online Now</a>
+                <a href="tel:2109571550" class="cta-dark">Call (210) 957-1550</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>📍 6436 NW Loop 410, San Antonio, TX 78238 • The Village at Ingram Park</p>
+            <p style="margin-top: 10px;">📞 <a href="tel:2109571550" style="color: #d4af37; text-decoration: none;">(210) 957-1550</a> • 💬 <a href="sms:7266008996" style="color: #d4af37; text-decoration: none;">(726) 600-8996</a></p>
+            <p style="margin-top: 10px;"><a href="/terms" style="color: #999; text-decoration: none;">Terms & Conditions</a> • <a href="/privacy" style="color: #999; text-decoration: none;">Privacy Policy</a></p>
+            <p style="margin-top: 20px;">&copy; 2025 Rustlers Club. All rights reserved. | Private Social Gaming Club</p>
+        </div>
+    </footer>
+</body>
+</html>
