@@ -144,7 +144,7 @@
             min-height: 100vh;
         }
         
-        /* Header */
+        /* Enhanced Header */
         header {
             position: fixed;
             top: 0;
@@ -153,6 +153,12 @@
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            background: rgba(26, 26, 26, 0.98);
         }
         
         nav {
@@ -168,6 +174,11 @@
         .logo {
             height: 50px;
             cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
         }
         
         .logo img {
@@ -177,8 +188,12 @@
         
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 30px;
             align-items: center;
+        }
+        
+        .nav-item {
+            position: relative;
         }
         
         .nav-links a {
@@ -186,10 +201,99 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .nav-links a.active {
+            color: #d4af37;
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #d4af37;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
         }
         
         .nav-links a:hover {
             color: #d4af37;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 80%;
+        }
+        
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        
+        .dropdown-toggle::after {
+            content: '▼';
+            font-size: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-toggle::after {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(26, 26, 26, 0.98);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            padding: 10px 0;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: #ccc;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .dropdown-menu a:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
+            padding-left: 25px;
+        }
+        
+        .dropdown-menu a::after {
+            display: none;
         }
         
         .cta-button {
@@ -211,6 +315,79 @@
             box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
         }
         
+        /* Special Live App CTA */
+        .live-app-cta {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            z-index: 999;
+            text-align: center;
+            max-width: 300px;
+            animation: pulse 2s infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .live-app-cta:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6);
+        }
+        
+        .live-app-cta h3 {
+            color: #1a1a1a;
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .live-app-cta p {
+            color: #1a1a1a;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .live-app-cta .app-button {
+            background: #1a1a1a;
+            color: #d4af37;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .live-app-cta .app-button:hover {
+            background: #000;
+            transform: scale(1.05);
+        }
+        
+        .live-app-cta .close-cta {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #1a1a1a;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.6;
+        }
+        
+        .live-app-cta .close-cta:hover {
+            opacity: 1;
+        }
+        
         /* Mobile menu */
         .mobile-menu-toggle {
             display: none;
@@ -218,6 +395,8 @@
             gap: 4px;
             cursor: pointer;
             z-index: 1001;
+            padding: 10px;
+            margin: -10px;
         }
         
         .mobile-menu-toggle span {
@@ -225,6 +404,7 @@
             height: 2px;
             background: #fff;
             transition: all 0.3s ease;
+            border-radius: 2px;
         }
         
         .mobile-menu-toggle.active span:first-child {
@@ -402,6 +582,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
         
         .access-card::before {
@@ -697,6 +878,8 @@
             display: inline-block;
             font-weight: 600;
             transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
         }
         
         .jackpot-button:hover {
@@ -867,13 +1050,54 @@
                 height: calc(100vh - 80px);
                 background: rgba(26, 26, 26, 0.98);
                 flex-direction: column;
-                gap: 20px;
+                gap: 0;
                 padding: 40px 20px;
                 transition: left 0.3s ease;
+                overflow-y: auto;
             }
             
             .nav-links.active {
                 left: 0;
+            }
+            
+            .nav-item {
+                width: 100%;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 15px 20px;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+                width: 100%;
+            }
+            
+            .nav-links a::after {
+                display: none;
+            }
+            
+            .dropdown-toggle::after {
+                margin-left: auto;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                background: rgba(0, 0, 0, 0.3);
+                margin: 0;
+                display: none;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .dropdown-menu a {
+                padding-left: 40px;
+                font-size: 14px;
             }
             
             .mobile-menu-toggle {
@@ -939,6 +1163,13 @@
             
             .modal-header h2 {
                 font-size: 24px;
+            }
+            
+            .live-app-cta {
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+                max-width: 100%;
             }
         }
         
@@ -1394,21 +1625,56 @@
         </div>
     </div>
 
-    <!-- Header -->
-    <header>
+    <!-- Enhanced Header -->
+    <header id="mainHeader">
         <nav>
             <div class="logo">
-                <img src="/images/logo.png" alt="Rustlers Club - San Antonio Poker">
+                <a href="/" aria-label="Rustlers Club Home">
+                    <img src="/images/logo.png" alt="Rustlers Club - San Antonio Poker">
+                </a>
             </div>
-            <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="https://rustlersclub.cardopz.com/" target="_blank">Live Games & Schedule</a>
-                <a href="https://rustlersclub.cardopz.com/" target="_blank">All Tournaments</a>
-                <a href="/membership">Membership</a>
-                <a href="#about">About</a>
-                <button class="cta-button play-now-btn">Sign Up</button>
+            <div class="nav-links" id="navLinks">
+                <div class="nav-item">
+                    <a href="/" class="active">Home</a>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                        <span>Play</span>
+                    </a>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="#" onclick="openModal(); return false;" role="menuitem">Sign Up Online</a>
+                        <a href="/membership" role="menuitem">Membership Info</a>
+                        <a href="#about" role="menuitem">Game Types</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                        <span>Tournaments</span>
+                    </a>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="/bullseye-tournament" role="menuitem">
+                            🎯 June 8th Bullseye - $500 GTD
+                        </a>
+                        <a href="#tournaments" role="menuitem">Daily Tournament Schedule</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="/membership">Membership</a>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                        <span>About</span>
+                    </a>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="#about" role="menuitem">About Us</a>
+                        <a href="/careers" role="menuitem">Careers</a>
+                        <a href="/terms" role="menuitem">Terms & Conditions</a>
+                        <a href="/privacy" role="menuitem">Privacy Policy</a>
+                    </div>
+                </div>
+                <button class="cta-button" onclick="openModal()">Sign Up</button>
             </div>
-            <div class="mobile-menu-toggle">
+            <div class="mobile-menu-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -1425,7 +1691,7 @@
             <p style="font-size: 20px; color: #d4af37; margin-top: 15px;">$10 Daily Membership • NO Time Charges • Must be 21+ with Valid ID</p>
             <p style="font-size: 18px; color: #ccc; margin-top: 10px;">📞 Call: <a href="tel:2109571550" style="color: #d4af37; text-decoration: none;">(210) 957-1550</a> • 💬 Text: <a href="sms:7266008996" style="color: #d4af37; text-decoration: none;">(726) 600-8996</a></p>
             <div class="hero-buttons">
-                <a href="https://rustlersclub.cardopz.com/" target="_blank" class="cta-button">View Live Games</a>
+                <button class="cta-button" onclick="openModal()">Join Now</button>
                 <a href="/membership" class="cta-button" style="background: transparent; border: 2px solid #d4af37; color: #d4af37;">Become a Member</a>
             </div>
         </div>
@@ -1450,45 +1716,45 @@
     <!-- Quick Access Section -->
     <section class="quick-access">
         <div class="section-header">
-            <h2>Real-Time Club Access</h2>
-            <p>Everything you need at your fingertips • Call (210) 957-1550</p>
+            <h2>Everything You Need to Know</h2>
+            <p>Learn about our games, membership, and what makes us San Antonio's best</p>
         </div>
         <div class="access-grid">
-            <a href="https://rustlersclub.cardopz.com/" target="_blank" class="access-card">
-                <span class="access-icon">🎮</span>
-                <h3>Live Games</h3>
-                <p>Check current games, stakes, and table availability in real-time</p>
-            </a>
-            <a href="https://rustlersclub.cardopz.com/" target="_blank" class="access-card">
-                <span class="access-icon">📋</span>
-                <h3>Join Waitlists</h3>
-                <p>Add your name to game waitlists and get notified when seats open</p>
-            </a>
-            <a href="https://rustlersclub.cardopz.com/" target="_blank" class="access-card">
-                <span class="access-icon">⏰</span>
-                <h3>Tournament Schedule</h3>
-                <p>View the next 7 days of tournaments, start times, and buy-ins</p>
-            </a>
-            <a href="https://rustlersclub.cardopz.com/" target="_blank" class="access-card">
-                <span class="access-icon">⏱️</span>
-                <h3>Live Tournament Info</h3>
-                <p>Check tournament clocks, blinds, and player counts during events</p>
-            </a>
-            <a href="https://rustlersclub.cardopz.com/" target="_blank" class="access-card">
-                <span class="access-icon">🎁</span>
-                <h3>Promotions</h3>
-                <p>Discover daily promotions and exclusive member bonuses</p>
-            </a>
-            <a href="https://rustlersclub.cardopz.com/" target="_blank" class="access-card">
-                <span class="access-icon">💰</span>
-                <h3>View Jackpots</h3>
-                <p>Track our massive progressive jackpots across all games</p>
-            </a>
-            <a href="https://rustlersclub.cardopz.com/" target="_blank" class="access-card">
+            <div class="access-card" onclick="openModal()">
                 <span class="access-icon">💳</span>
-                <h3>Player Card</h3>
-                <p>Access your digital player card and track your play</p>
-            </a>
+                <h3>Get Started</h3>
+                <p>Sign up online and save time. Get your member card ready before you arrive</p>
+            </div>
+            <div class="access-card" onclick="window.location.href='/membership'">
+                <span class="access-icon">🎮</span>
+                <h3>$10 Daily Membership</h3>
+                <p>Best value in San Antonio - NO time charges on any games. Military & First Responders FREE</p>
+            </div>
+            <div class="access-card" onclick="document.getElementById('tournaments').scrollIntoView({behavior: 'smooth'})">
+                <span class="access-icon">🏆</span>
+                <h3>Daily Tournaments</h3>
+                <p>Multiple tournaments every day with varying buy-ins and formats. FREE entry events weekly</p>
+            </div>
+            <div class="access-card" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+                <span class="access-icon">🃏</span>
+                <h3>Exclusive Games</h3>
+                <p>TX Bullseye, Ultimate SA Hold'em, and more games you won't find anywhere else</p>
+            </div>
+            <div class="access-card" onclick="showLiveAppCTA()">
+                <span class="access-icon">📱</span>
+                <h3>Digital Experience</h3>
+                <p>Track your play, view live games, join waitlists, and check jackpots from your phone</p>
+            </div>
+            <div class="access-card" onclick="window.location.href='/careers'">
+                <span class="access-icon">💼</span>
+                <h3>Now Hiring</h3>
+                <p>Join our team! We're hiring dealers, front desk, and more. No experience needed - we train</p>
+            </div>
+            <div class="access-card" onclick="document.getElementById('location').scrollIntoView({behavior: 'smooth'})">
+                <span class="access-icon">📍</span>
+                <h3>Find Us</h3>
+                <p>6436 NW Loop 410 in The Village at Ingram Park. Easy access from Medical Center & UTSA</p>
+            </div>
             <div class="access-card" style="background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%); color: #1a1a1a; cursor: pointer;">
                 <span class="access-icon" style="color: #1a1a1a;">📞</span>
                 <h3 style="color: #1a1a1a;">Contact Us</h3>
@@ -1497,6 +1763,46 @@
                     Text: <a href="sms:7266008996" style="color: #1a1a1a; font-weight: 700;">(726) 600-8996</a><br>
                     <span style="font-size: 12px;">Direct line to management</span>
                 </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Tournament Schedule -->
+    <section id="tournaments" class="tournament-schedule-section" style="padding: 80px 20px; background: #0f0f0f;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="section-header">
+                <h2>Daily Tournament Schedule</h2>
+                <p>Something for everyone - multiple formats and buy-ins daily</p>
+            </div>
+            
+            <div style="background: rgba(26, 26, 26, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 15px; padding: 40px 30px; text-align: center;">
+                <h3 style="color: #d4af37; font-size: 28px; margin-bottom: 25px;">Tournament Times</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 30px;">
+                    <div>
+                        <h4 style="color: #d4af37; font-size: 20px; margin-bottom: 15px;">Monday - Thursday</h4>
+                        <p style="color: #fff; font-size: 24px; font-weight: bold;">6:00 PM Daily</p>
+                    </div>
+                    
+                    <div>
+                        <h4 style="color: #d4af37; font-size: 20px; margin-bottom: 15px;">Friday & Saturday</h4>
+                        <p style="color: #fff; font-size: 24px; font-weight: bold;">1:00 PM & 6:00 PM</p>
+                    </div>
+                    
+                    <div>
+                        <h4 style="color: #d4af37; font-size: 20px; margin-bottom: 15px;">Sunday</h4>
+                        <p style="color: #fff; font-size: 24px; font-weight: bold;">6:00 PM</p>
+                    </div>
+                </div>
+                
+                <p style="color: #ccc; font-size: 18px; margin-bottom: 20px;">
+                    <strong style="color: #d4af37;">Formats:</strong> NLH, PLO, ROE (Round of Each), and more!<br>
+                    <strong style="color: #d4af37;">Buy-ins:</strong> Vary by day - something for every bankroll
+                </p>
+                
+                <button class="cta-button" onclick="showLiveAppCTA()" style="font-size: 20px; padding: 15px 40px;">
+                    View Today's Tournaments
+                </button>
             </div>
         </div>
     </section>
@@ -1519,7 +1825,7 @@
         <div class="jackpot-content">
             <h2>🏆 San Antonio's Biggest Jackpots</h2>
             <p>Progressive jackpots across all poker games</p>
-            <a href="https://rustlersclub.cardopz.com/" target="_blank" class="jackpot-button">View Current Jackpots</a>
+            <button class="jackpot-button" onclick="showLiveAppCTA()">View Current Jackpots</button>
         </div>
     </section>
 
@@ -1589,7 +1895,7 @@
     </section>
 
     <!-- Location Section -->
-    <section class="location-section">
+    <section class="location-section" id="location">
         <div class="location-content">
             <div class="section-header">
                 <h2>Visit Us Today</h2>
@@ -1612,19 +1918,18 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Quick Links</h3>
-                <a href="https://rustlersclub.cardopz.com/" target="_blank">Live Games</a>
-                <a href="https://rustlersclub.cardopz.com/" target="_blank">7-Day Tournament Schedule</a>
+                <a href="#" onclick="openModal(); return false;">Sign Up Online</a>
                 <a href="/membership">Membership Info</a>
                 <a href="/bullseye-tournament">June 8th Bullseye Tournament</a>
                 <a href="/careers">Careers</a>
-                <a href="https://rustlersclub.cardopz.com/" target="_blank">Promotions</a>
+                <a href="#tournaments">Tournament Schedule</a>
             </div>
             <div class="footer-section">
                 <h3>Our Games</h3>
-                <a href="https://rustlersclub.cardopz.com/" target="_blank">Texas Hold'em & Omaha</a>
-                <a href="https://rustlersclub.cardopz.com/" target="_blank">Daily Tournaments</a>
-                <a href="https://rustlersclub.cardopz.com/" target="_blank">High Hand Jackpots</a>
-                <a href="https://rustlersclub.cardopz.com/" target="_blank">Bad Beat Jackpot</a>
+                <a href="#about">Texas Hold'em & Omaha</a>
+                <a href="#tournaments">Daily Tournaments</a>
+                <a href="#about">Custom Table Games</a>
+                <a href="#" onclick="showLiveAppCTA(); return false;">View Live Jackpots</a>
             </div>
             <div class="footer-section">
                 <h3>Contact</h3>
@@ -1685,6 +1990,14 @@
                 <div id="formMessage"></div>
             </form>
         </div>
+    </div>
+
+    <!-- Live App CTA (Hidden by default) -->
+    <div class="live-app-cta" id="liveAppCTA" style="display: none;">
+        <button class="close-cta" onclick="closeLiveAppCTA()">&times;</button>
+        <h3>🎮 Rustlers Club Live</h3>
+        <p>Real-time games, waitlists, tournaments, jackpots & more!</p>
+        <a href="https://rustlersclub.cardopz.com/" target="_blank" class="app-button">Open Live Dashboard</a>
     </div>
 
     <script>
@@ -1801,13 +2114,66 @@
             }
         }
         
-        // Mobile menu toggle
-        const mobileToggle = document.querySelector('.mobile-menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
+        // Enhanced Navigation
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        const dropdowns = document.querySelectorAll('.dropdown');
+        const header = document.getElementById('mainHeader');
         
+        // Mobile menu toggle
         mobileToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.contains('active');
             navLinks.classList.toggle('active');
             mobileToggle.classList.toggle('active');
+            mobileToggle.setAttribute('aria-expanded', !isOpen);
+            
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = isOpen ? '' : 'hidden';
+        });
+        
+        // Mobile dropdown handling
+        dropdowns.forEach(dropdown => {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            
+            toggle.addEventListener('click', (e) => {
+                // Only prevent default on mobile
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    
+                    // Close other dropdowns
+                    dropdowns.forEach(d => {
+                        if (d !== dropdown) {
+                            d.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    dropdown.classList.toggle('active');
+                    
+                    // Update aria-expanded
+                    const isExpanded = dropdown.classList.contains('active');
+                    toggle.setAttribute('aria-expanded', isExpanded);
+                }
+            });
+        });
+        
+        // Add header shadow on scroll
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav') && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
         });
         
         // Smooth scrolling
@@ -1816,34 +2182,19 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const headerHeight = header.offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
         });
         
-        // Add scroll effect to header
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(26, 26, 26, 0.98)';
-            } else {
-                header.style.background = 'rgba(26, 26, 26, 0.95)';
-            }
-        });
-        
         // Modal functionality
         const modal = document.getElementById('signupModal');
-        const playNowButtons = document.querySelectorAll('.play-now-btn');
-        
-        playNowButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                openModal();
-            });
-        });
         
         function openModal() {
             modal.classList.add('active');
@@ -1856,7 +2207,8 @@
             document.getElementById('formMessage').innerHTML = '';
         }
         
-        window.closeModal = closeModal; // Make closeModal available globally
+        window.openModal = openModal;
+        window.closeModal = closeModal;
         
         // Close modal when clicking outside
         modal.addEventListener('click', (e) => {
@@ -1906,7 +2258,7 @@
                 
                 if (response.ok) {
                     formMessage.className = 'form-message success';
-                    formMessage.innerHTML = '✓ Success! Check your email for the sign-up link.';
+                    formMessage.innerHTML = '✓ Success! Check your email and phone for updates.';
                     signupForm.reset();
                     
                     // Close modal after 3 seconds
@@ -1924,6 +2276,26 @@
                 submitButton.textContent = originalText;
             }
         });
+        
+        // Live App CTA Functions
+        function showLiveAppCTA() {
+            const cta = document.getElementById('liveAppCTA');
+            cta.style.display = 'block';
+            setTimeout(() => {
+                cta.style.opacity = '1';
+            }, 100);
+        }
+        
+        function closeLiveAppCTA() {
+            const cta = document.getElementById('liveAppCTA');
+            cta.style.opacity = '0';
+            setTimeout(() => {
+                cta.style.display = 'none';
+            }, 300);
+        }
+        
+        window.showLiveAppCTA = showLiveAppCTA;
+        window.closeLiveAppCTA = closeLiveAppCTA;
         
         // Hours Widget Functions
         (function() {
