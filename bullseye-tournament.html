@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bullseye Tournament June 8th - $500 GTD FREE Entry | Rustlers Club San Antonio</title>
+    <meta name="description" content="Join the Bullseye Tournament at Rustlers Club San Antonio on June 8th. $500 guaranteed prize pool, FREE entry available. Better than Lodge Poker Club tournaments!">
+    <meta name="keywords" content="poker tournament san antonio, free poker tournament, bullseye tournament, rustlers club tournament, san antonio poker, free entry poker, $500 guaranteed poker">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="event">
+    <meta property="og:url" content="https://rustlersclub.com/bullseye-tournament">
+    <meta property="og:title" content="Bullseye Tournament - $500 GTD at Rustlers Club">
+    <meta property="og:description" content="June 8th at 6PM. $500 guaranteed tournament with FREE entry available. Play 5 hours June 3-8 to earn your spot!">
+    <meta property="og:image" content="https://rustlersclub.com/images/featured-image.png">
+    <meta property="og:site_name" content="Rustlers Club">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://rustlersclub.com/bullseye-tournament">
+    <meta name="twitter:title" content="Bullseye Tournament June 8th - $500 GTD">
+    <meta name="twitter:description" content="FREE entry poker tournament at Rustlers Club San Antonio. $500 guaranteed, June 8th at 6PM. Better than SA Card House!">
+    <meta name="twitter:image" content="https://rustlersclub.com/images/featured-image.png">
+    
+    <!-- Event Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "Bullseye Tournament - $500 GTD",
+      "description": "Special poker tournament with $500 guaranteed prize pool. FREE entry available by playing 5 hours June 3-8. Top 2 players advance each round.",
+      "startDate": "2025-06-08T18:00:00-05:00",
+      "endDate": "2025-06-08T23:00:00-05:00",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Rustlers Club",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "6436 NW Loop 410",
+          "addressLocality": "San Antonio",
+          "addressRegion": "TX",
+          "postalCode": "78238",
+          "addressCountry": "US"
+        }
+      },
+      "offers": [{
+        "@type": "Offer",
+        "name": "Direct Entry",
+        "price": "20",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },{
+        "@type": "Offer",
+        "name": "Free Entry (Play 5 hours)",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      }],
+      "organizer": {
+        "@type": "Organization",
+        "name": "Rustlers Club",
+        "url": "https://rustlersclub.com"
+      }
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+        }
+        
+        /* Header (same as homepage) */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+        
+        .logo {
+            height: 50px;
+            cursor: pointer;
+        }
+        
+        .logo img {
+            height: 100%;
+            width: auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #d4af37;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a1a1a;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* Tournament Hero */
+        .tournament-hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 80px 20px;
+        }
+        
+        .pattern-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.02) 35px, rgba(255,255,255,.02) 70px),
+                repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(255,255,255,.02) 35px, rgba(255,255,255,.02) 70px);
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-left {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .event-badge {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a1a1a;
+            padding: 8px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        h1 {
+            font-size: clamp(40px, 8vw, 64px);
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+        
+        .gold-text {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-date {
+            font-size: 28px;
+            color: #d4af37;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .hero-description {
+            font-size: 18px;
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .hero-right {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card-visual {
+            font-size: 200px;
+            color: #d4af37;
+            filter: drop-shadow(0 20px 40px rgba(212, 175, 55, 0.3));
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Tournament Details Section */
+        .details-section {
+            padding: 80px 20px;
+            background: #0f0f0f;
+        }
+        
+        .details-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .detail-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .detail-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+        }
+        
+        .detail-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .detail-card h3 {
+            color: #d4af37;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .detail-card p {
+            color: #999;
+            line-height: 1.5;
+        }
+        
+        /* Tournament Structure */
+        .structure-section {
+            padding: 80px 20px;
+            background: #1a1a1a;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .structure-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .structure-item {
+            background: rgba(212, 175, 55, 0.05);
+            border-left: 4px solid #d4af37;
+            padding: 20px 30px;
+            margin-bottom: 20px;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .structure-item h4 {
+            color: #d4af37;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .structure-item p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+        
+        /* How to Enter */
+        .entry-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+        }
+        
+        .entry-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            color: #1a1a1a;
+        }
+        
+        .entry-content h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        
+        .entry-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .entry-option {
+            background: rgba(26, 26, 26, 0.95);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .entry-option:hover {
+            transform: translateY(-5px);
+        }
+        
+        .entry-option h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .entry-option .price {
+            font-size: 36px;
+            color: #d4af37;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .entry-option ul {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .entry-option li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .entry-option li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #d4af37;
+            font-weight: bold;
+        }
+        
+        /* Registration Notice */
+        .registration-notice {
+            background: rgba(26, 26, 26, 0.95);
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .registration-notice h3 {
+            color: #d4af37;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .registration-notice p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 60px 20px;
+            background: #0f0f0f;
+            text-align: center;
+        }
+        
+        .cta-content h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            font-size: 18px;
+            color: #999;
+            margin-bottom: 30px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Footer (same as homepage) */
+        footer {
+            background: #0a0a0a;
+            padding: 60px 20px 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            color: #666;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .card-visual {
+                font-size: 120px;
+            }
+            
+            .entry-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .cta-buttons .cta-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="Rustlers Club - San Antonio Poker Tournament">
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="https://rustlersclub.cardopz.com/" target="_blank">Live Games & Schedule</a>
+                <a href="https://rustlersclub.cardopz.com/" target="_blank">All Tournaments</a>
+                <a href="/membership">Membership</a>
+                <a href="/#about">About</a>
+                <a href="/" class="cta-button">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Tournament Hero -->
+    <section class="tournament-hero">
+        <div class="pattern-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-left">
+                <div class="event-badge">Limited Time Tournament</div>
+                <h1>
+                    BULLSEYE
+                    <span class="gold-text">TOURNAMENT</span>
+                </h1>
+                <p style="font-size: 16px; color: #999; margin-bottom: 20px;">Special One-Time Event</p>
+                <div class="hero-date">
+                    📅 June 8th • 6PM
+                </div>
+                <p class="hero-description">
+                    Join San Antonio's most exciting poker tournament! Our exclusive Bullseye Tournament features a $500 guaranteed prize pool with FREE entry available - better value than tournaments at The Lodge or SA Card House. Experience competitive poker play at Northwest San Antonio's premier private social club.
+                </p>
+                <p style="font-size: 18px; color: #ccc; margin-bottom: 30px;">
+                    Questions? Call <a href="tel:2109571550" style="color: #d4af37; text-decoration: none;">(210) 957-1550</a> or Text <a href="sms:7266008996" style="color: #d4af37; text-decoration: none;">(726) 600-8996</a>
+                </p>
+                <div class="cta-buttons">
+                    <a href="https://rustlersclub.cardopz.com/" target="_blank" class="cta-button">RSVP Online</a>
+                    <a href="#registration" class="cta-button" style="background: transparent; border: 2px solid #d4af37; color: #d4af37;">How to Register</a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="card-visual">🎯</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tournament Details -->
+    <section class="details-section">
+        <div class="details-container">
+            <div class="details-grid">
+                <div class="detail-card">
+                    <span class="detail-icon">💰</span>
+                    <h3>$500 GTD</h3>
+                    <p>Guaranteed prize pool for this exclusive member tournament</p>
+                </div>
+                <div class="detail-card">
+                    <span class="detail-icon">🎮</span>
+                    <h3>5K Starting Stack</h3>
+                    <p>Begin with 5,000 in tournament chips</p>
+                </div>
+                <div class="detail-card">
+                    <span class="detail-icon">🃏</span>
+                    <h3>18 Hands Per Round</h3>
+                    <p>Strategic gameplay with 18 hands dealt each round</p>
+                </div>
+                <div class="detail-card">
+                    <span class="detail-icon">🏆</span>
+                    <h3>Top 2 Advance</h3>
+                    <p>Top 2 chip leaders from each round move forward</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tournament Structure -->
+    <section class="structure-section">
+        <div class="section-header">
+            <h2>Bullseye Tournament Structure</h2>
+            <p style="color: #999; font-size: 16px;">Special one-time tournament format - different from our daily tournaments!</p>
+        </div>
+        <div class="structure-content">
+            <div class="structure-item">
+                <h4>Format</h4>
+                <p>Multi-round advancement tournament where the top 2 players in chips from each round advance to the next stage. Continue until final table determines the champion.</p>
+            </div>
+            <div class="structure-item">
+                <h4>Qualifying Period</h4>
+                <p>Play 5 hours between June 3-8 to earn your FREE entry. Every additional hour played earns you 250 bonus chips to start the tournament.</p>
+            </div>
+            <div class="structure-item">
+                <h4>Dealer Add-On</h4>
+                <p>Support our professional dealers with a $10 add-on for an additional 2,000 chips at the start of the tournament.</p>
+            </div>
+            <div class="structure-item">
+                <h4>Strategic Play</h4>
+                <p>With exactly 18 hands per round, every decision matters. Plan your strategy carefully as you compete for advancement.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Enter -->
+    <section class="entry-section" id="registration">
+        <div class="entry-content">
+            <h2>Choose Your Entry Method</h2>
+            <div class="entry-options">
+                <div class="entry-option">
+                    <h3>Play & Earn Entry</h3>
+                    <div class="price">FREE</div>
+                    <ul>
+                        <li>Play 5 hours June 3-8</li>
+                        <li>Earn free tournament entry</li>
+                        <li>Get 250 bonus chips per extra hour</li>
+                        <li>Support the club through regular play</li>
+                    </ul>
+                </div>
+                <div class="entry-option">
+                    <h3>Direct Entry</h3>
+                    <div class="price">$20</div>
+                    <ul>
+                        <li>Register at the club</li>
+                        <li>5,000 starting stack</li>
+                        <li>Optional $10 dealer add-on</li>
+                        <li>Perfect for busy schedules</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="registration-notice">
+                <h3>📍 How to Register</h3>
+                <p><strong>In-Person Registration:</strong> Visit Rustlers Club at 6436 NW Loop 410 to register and secure your seat.</p>
+                <p><strong>RSVP Online:</strong> Let us know you're coming! RSVP through our online system and we'll have your information ready when you arrive to complete registration.</p>
+                <p style="color: #d4af37; margin-top: 15px;">All tournament registrations must be completed in person at the club.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h3>Ready to Compete?</h3>
+            <p>Seats are limited for this exclusive tournament. Visit us to register or RSVP online to let us know you're coming!</p>
+            <p style="margin-top: 15px; font-size: 20px; color: #d4af37;">📞 Call: <a href="tel:2109571550" style="color: #d4af37; text-decoration: none;">(210) 957-1550</a> • 💬 Text: <a href="sms:7266008996" style="color: #d4af37; text-decoration: none;">(726) 600-8996</a></p>
+            <div class="cta-buttons" style="margin-top: 30px;">
+                <a href="https://rustlersclub.cardopz.com/" target="_blank" class="cta-button">RSVP Online</a>
+                <a href="https://rustlersclub.cardopz.com/" target="_blank" class="cta-button" style="background: transparent; border: 2px solid #d4af37; color: #d4af37;">View Today's Live Schedule</a>
+            </div>
+            <p style="margin-top: 20px; color: #999; font-size: 14px;">
+                <strong>Visit us at:</strong> 6436 NW Loop 410, San Antonio, TX 78238<br>
+                The Village at Ingram Park • Private Members Club
+            </p>
+        </div>
+    </section>
+
+    <!-- Daily Tournament Schedule -->
+    <section class="daily-schedule-section" style="padding: 60px 20px; background: #1a1a1a; border-top: 1px solid rgba(212, 175, 55, 0.2);">
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+            <h2 style="font-size: clamp(32px, 5vw, 40px); margin-bottom: 20px; text-transform: uppercase;">Can't Make June 8th?</h2>
+            <p style="font-size: 20px; color: #d4af37; margin-bottom: 30px;">Join Our Daily Tournaments!</p>
+            
+            <div style="background: rgba(212, 175, 55, 0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 15px; padding: 40px 30px; margin-bottom: 40px;">
+                <h3 style="color: #d4af37; font-size: 28px; margin-bottom: 25px;">Regular Tournament Schedule</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 30px;">
+                    <div style="text-align: center;">
+                        <h4 style="color: #d4af37; font-size: 20px; margin-bottom: 15px;">Monday - Thursday</h4>
+                        <p style="color: #ccc; font-size: 18px;">Daily Tournament</p>
+                        <p style="color: #fff; font-size: 24px; font-weight: bold;">6:00 PM</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <h4 style="color: #d4af37; font-size: 20px; margin-bottom: 15px;">Friday & Saturday</h4>
+                        <p style="color: #ccc; font-size: 18px;">Two Daily Tournaments</p>
+                        <p style="color: #fff; font-size: 24px; font-weight: bold;">1:00 PM & 6:00 PM</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <h4 style="color: #d4af37; font-size: 20px; margin-bottom: 15px;">Sunday</h4>
+                        <p style="color: #ccc; font-size: 18px;">Daily Tournament</p>
+                        <p style="color: #fff; font-size: 24px; font-weight: bold;">6:00 PM</p>
+                    </div>
+                </div>
+                
+                <div style="background: #0f0f0f; border-radius: 10px; padding: 25px; margin-bottom: 25px;">
+                    <p style="color: #ccc; font-size: 16px; line-height: 1.6; margin-bottom: 15px;">
+                        <strong style="color: #d4af37;">Game Variety:</strong> No Limit Hold'em (NLH), Pot Limit Omaha (PLO), Round of Each (ROE), and more!
+                    </p>
+                    <p style="color: #ccc; font-size: 16px; line-height: 1.6;">
+                        <strong style="color: #d4af37;">Varying Buy-ins & Structures:</strong> Different stack sizes and formats throughout the week
+                    </p>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <p style="color: #1a1a1a; font-size: 18px; font-weight: 600; margin-bottom: 10px;">
+                        🎰 Check Real-Time Tournament Details
+                    </p>
+                    <p style="color: #1a1a1a; font-size: 16px;">
+                        View today's exact tournament format, buy-in, and current registration count
+                    </p>
+                </div>
+                
+                <a href="https://rustlersclub.cardopz.com/" target="_blank" class="cta-button" style="font-size: 20px; padding: 15px 40px;">
+                    View Live Tournament Schedule
+                </a>
+                
+                <p style="color: #999; font-size: 14px; margin-top: 20px;">
+                    Tournament formats and buy-ins vary daily. Check our live system for today's games!
+                </p>
+            </div>
+            
+            <p style="color: #ccc; font-size: 16px;">
+                <strong>Pro Tip:</strong> Bookmark <a href="https://rustlersclub.cardopz.com/" target="_blank" style="color: #d4af37; text-decoration: none;">rustlersclub.cardopz.com</a> on your phone for instant access to tournament info!
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>📍 6436 NW Loop 410, San Antonio, TX 78238 • The Village at Ingram Park</p>
+            <p style="margin-top: 10px;">Private Members-Only Club • $10 Daily Membership • Must be 21+</p>
+            <p style="margin-top: 10px;">📞 Front Desk: <a href="tel:2109571550" style="color: #d4af37; text-decoration: none;">(210) 957-1550</a> • 💬 Text: <a href="sms:7266008996" style="color: #d4af37; text-decoration: none;">(726) 600-8996</a></p>
+            <p style="margin-top: 10px;">Instagram: @rustlersclub • Facebook Group Available</p>
+            <p style="margin-top: 10px;"><a href="/terms" style="color: #999; text-decoration: none;">Terms & Conditions</a> • <a href="/privacy" style="color: #999; text-decoration: none;">Privacy Policy</a> • <a href="/membership" style="color: #999; text-decoration: none;">Membership Info</a></p>
+            <p style="margin-top: 20px; color: #999;">&copy; 2025 Rustlers Club. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
