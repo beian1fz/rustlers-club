@@ -1,126 +1,182 @@
-// api/signup.js - Vercel Serverless Function for handling sign-ups
+// ============================================
+// ADD THESE FUNCTIONS TO YOUR EXISTING signup.js
+// Put them at the bottom of your file, before the final closing }
+// ============================================
 
-export default async function handler(req, res) {
-  // Handle preflight
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
-
-  // Only accept POST requests
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
-  }
-
+// Find or create contact in OpenPhone
+async function findOrCreateContact(phoneNumber, name, email) {
+  const apiKey = process.env.OPENPHONE_API_KEY;
+  const formattedPhone = phoneNumber.startsWith('+1') ? phoneNumber : `+1${phoneNumber}`;
+  
   try {
-    const { name, phone, email, smsConsent, source } = req.body;
-
-    // Basic validation
-    if (!name || !phone || !email) {
-      return res.status(400).json({ 
-        message: 'Please provide all required fields' 
-      });
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({ 
-        message: 'Please provide a valid email address' 
-      });
-    }
-
-    // Phone validation (basic)
-    const phoneRegex = /^\d{10,}$/;
-    const cleanPhone = phone.replace(/\D/g, '');
-    if (!phoneRegex.test(cleanPhone)) {
-      return res.status(400).json({ 
-        message: 'Please provide a valid phone number' 
-      });
-    }
-
-    // Here you would typically:
-    // 1. Save to your database
-    // 2. Send to your CRM/Email service
-    // 3. Send SMS notifications
-    // 4. Create member account
-
-    // For now, we'll just log and return success
-    console.log('New signup:', {
-      name,
-      phone: cleanPhone,
-      email,
-      smsConsent,
-      source: source || 'website',
-      timestamp: new Date().toISOString()
-    });
-
-    // TODO: Integrate with your services:
-    // - Database (MongoDB, PostgreSQL, etc.)
-    // - Email service (SendGrid, Mailgun, etc.)
-    // - SMS service (Twilio, etc.)
-    // - CRM (HubSpot, Salesforce, etc.)
-
-    // Return success response
-    return res.status(200).json({
-      success: true,
-      message: 'Successfully signed up!',
-      data: {
-        name,
-        email
+    // Search for existing contact
+    const searchUrl = `https://api.openphone.com/v1/contacts?phoneNumber=${encodeURIComponent(formattedPhone)}`;
+    const searchResponse = await fetch(searchUrl, {
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Accept': 'application/json'
       }
     });
-
-  } catch (error) {
-    console.error('Signup error:', error);
-    return res.status(500).json({ 
-      success: false,
-      message: 'An error occurred. Please try again.' 
+    
+    if (searchResponse.ok) {
+      const searchData = await searchResponse.json();
+      if (searchData.data && searchData.data.length > 0) {
+        console.log('Found existing contact:', searchData.data[0].id);
+        return searchData.data[0];
+      }
+    }
+    
+    // Create new contact
+    const [firstName, ...lastNameParts] = name.split(' ');
+    const lastName = lastNameParts.join(' ');
+    
+    const createResponse = await fetch('https://api.openphone.com/v1/contacts', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        firstName: firstName || name,
+        lastName: lastName || '',
+        emails: email ? [{ email }] : [],
+        phoneNumbers: [{
+          phoneNumber: formattedPhone
+        }],
+        customFields: [{
+          key: 'source',
+          value: 'Website Signup'
+        }]
+      })
     });
+    
+    if (createResponse.ok) {
+      const newContact = await createResponse.json();
+      console.log('Created new contact:', newContact.data.id);
+      return newContact.data;
+    } else {
+      const errorText = await createResponse.text();
+      console.error('Failed to create contact:', errorText);
+      return null;
+    }
+    
+  } catch (error) {
+    console.error('Contact operation error:', error);
+    return null;
   }
 }
 
-// Example integration with Twilio for SMS (uncomment and configure):
-/*
-import twilio from 'twilio';
-
-const twilioClient = twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
-
-async function sendWelcomeSMS(phone, name) {
+// Add internal note to contact
+async function addInternalNote(contactId, message) {
+  const apiKey = process.env.OPENPHONE_API_KEY;
+  
   try {
-    await twilioClient.messages.create({
-      body: `Welcome to Rustlers Club, ${name}! Show this text for your first-time member bonus. Reply STOP to unsubscribe.`,
-      from: process.env.TWILIO_PHONE_NUMBER,
-      to: `+1${phone}`
+    const response = await fetch(`https://api.openphone.com/v1/contacts/${contactId}/notes`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        content: message
+      })
     });
+    
+    if (response.ok) {
+      console.log('Internal note added successfully');
+    } else {
+      const errorText = await response.text();
+      console.error('Failed to add note:', errorText);
+    }
+  } catch (error) {
+    console.error('Note error:', error);
+  }
+}
+
+// Send welcome SMS
+async function sendWelcomeSMS(phoneNumber, name, eventName) {
+  const apiKey = process.env.OPENPHONE_API_KEY;
+  const fromNumber = process.env.OPENPHONE_NUMBER;
+  
+  const firstName = name.split(' ')[0];
+  let messageBody = `Hi ${firstName}! Welcome to Rustlers Club 🎯\n\n`;
+  
+  if (eventName) {
+    messageBody += `We see you're interested in ${eventName}. `;
+    messageBody += `Our team will text you details shortly!\n\n`;
+  }
+  
+  messageBody += `Show this text for $5 off your first visit!\n\n`;
+  messageBody += `📍 6436 NW Loop 410\n`;
+  messageBody += `📞 (210) 957-1550\n`;
+  messageBody += `💬 Text: (726) 600-8996\n`;
+  messageBody += `⏰ Tue-Sat • No time charges!\n\n`;
+  messageBody += `Reply STOP to opt out.`;
+
+  try {
+    const toNumber = phoneNumber.startsWith('+1') ? phoneNumber : `+1${phoneNumber}`;
+    
+    const response = await fetch('https://api.openphone.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        to: [toNumber],
+        from: fromNumber,
+        body: messageBody
+      })
+    });
+
+    if (response.ok) {
+      console.log('Welcome SMS sent successfully');
+    } else {
+      const errorText = await response.text();
+      console.error('SMS send failed:', errorText);
+    }
   } catch (error) {
     console.error('SMS error:', error);
   }
 }
-*/
 
-// Example integration with SendGrid for Email (uncomment and configure):
-/*
-import sgMail from '@sendgrid/mail';
+// ============================================
+// ALSO ADD THIS CODE INSIDE YOUR MAIN HANDLER FUNCTION
+// Right after your validation, add this:
+// ============================================
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    // Format internal message for OpenPhone
+    let internalMessage = `🎯 New Rustlers Club Signup!\n\n`;
+    internalMessage += `Name: ${name}\n`;
+    internalMessage += `Phone: ${phone}\n`;
+    internalMessage += `Email: ${email}\n`;
+    internalMessage += `SMS Consent: ${smsConsent ? 'Yes' : 'No'}\n`;
+    
+    if (eventType && eventName) {
+      internalMessage += `\n🎮 Interested in: ${eventName}\n`;
+      internalMessage += `Type: ${eventType}\n`;
+    }
 
-async function sendWelcomeEmail(email, name) {
-  const msg = {
-    to: email,
-    from: 'welcome@rustlersclub.com',
-    subject: 'Welcome to Rustlers Club!',
-    text: `Hi ${name}, welcome to Rustlers Club...`,
-    html: `<h1>Welcome ${name}!</h1><p>Thank you for joining...</p>`,
-  };
-  
-  try {
-    await sgMail.send(msg);
-  } catch (error) {
-    console.error('Email error:', error);
-  }
-}
-*/
+    // Send to OpenPhone
+    if (process.env.OPENPHONE_API_KEY && process.env.OPENPHONE_NUMBER) {
+      try {
+        // Create or update contact
+        const contact = await findOrCreateContact(cleanPhone, name, email);
+        
+        // Add internal note
+        if (contact) {
+          await addInternalNote(contact.id, internalMessage);
+        }
+        
+        // Send welcome SMS if consented
+        if (smsConsent) {
+          await sendWelcomeSMS(cleanPhone, name, eventName);
+        }
+      } catch (openPhoneError) {
+        console.error('OpenPhone error:', openPhoneError);
+        // Continue even if OpenPhone fails
+      }
+    }
