@@ -1,116 +1,126 @@
-// Place this file at: /api/signup.js in your Vercel project
+// api/signup.js - Vercel Serverless Function for handling sign-ups
 
 export default async function handler(req, res) {
-  // Only allow POST requests
+  // Handle preflight
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  // Only accept POST requests
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({ message: 'Method not allowed' });
   }
-
-  // Get form data
-  const { name, phone, email } = req.body;
-
-  // Validate required fields
-  if (!name || !phone || !email) {
-    return res.status(400).json({ error: 'All fields are required' });
-  }
-
-  // Format the data for email
-  const emailContent = {
-    to: 'info@rustlersclub.com', // CHANGE THIS to your actual email
-    from: 'noreply@rustlersclub.com', // CHANGE THIS to your verified sender email
-    subject: 'New Rustlers Club Sign Up Request',
-    html: `
-      <h2>New Sign Up Request</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Phone:</strong> ${phone}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Submitted:</strong> ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}</p>
-      <hr>
-      <p>Send them the Cardopz sign-up link to complete their membership.</p>
-    `,
-    text: `
-      New Sign Up Request
-      
-      Name: ${name}
-      Phone: ${phone}
-      Email: ${email}
-      Submitted: ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}
-      
-      Send them the Cardopz sign-up link to complete their membership.
-    `
-  };
 
   try {
-    // Option 1: Using SendGrid (Recommended)
-    // First install: npm install @sendgrid/mail
-    // Then uncomment this section:
-    /*
-    const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY); // Add this to your Vercel env vars
-    
-    await sgMail.send(emailContent);
-    */
+    const { name, phone, email, smsConsent, source } = req.body;
 
-    // Option 2: Using Resend (Alternative)
-    // First install: npm install resend
-    // Then uncomment this section:
-    /*
-    const { Resend } = require('resend');
-    const resend = new Resend(process.env.RESEND_API_KEY); // Add this to your Vercel env vars
-    
-    await resend.emails.send(emailContent);
-    */
+    // Basic validation
+    if (!name || !phone || !email) {
+      return res.status(400).json({ 
+        message: 'Please provide all required fields' 
+      });
+    }
 
-    // Option 3: Using a webhook (e.g., Zapier, Make.com)
-    // Uncomment and configure:
-    /*
-    const webhookUrl = process.env.WEBHOOK_URL; // Add this to your Vercel env vars
-    await fetch(webhookUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ 
+        message: 'Please provide a valid email address' 
+      });
+    }
+
+    // Phone validation (basic)
+    const phoneRegex = /^\d{10,}$/;
+    const cleanPhone = phone.replace(/\D/g, '');
+    if (!phoneRegex.test(cleanPhone)) {
+      return res.status(400).json({ 
+        message: 'Please provide a valid phone number' 
+      });
+    }
+
+    // Here you would typically:
+    // 1. Save to your database
+    // 2. Send to your CRM/Email service
+    // 3. Send SMS notifications
+    // 4. Create member account
+
+    // For now, we'll just log and return success
+    console.log('New signup:', {
+      name,
+      phone: cleanPhone,
+      email,
+      smsConsent,
+      source: source || 'website',
+      timestamp: new Date().toISOString()
+    });
+
+    // TODO: Integrate with your services:
+    // - Database (MongoDB, PostgreSQL, etc.)
+    // - Email service (SendGrid, Mailgun, etc.)
+    // - SMS service (Twilio, etc.)
+    // - CRM (HubSpot, Salesforce, etc.)
+
+    // Return success response
+    return res.status(200).json({
+      success: true,
+      message: 'Successfully signed up!',
+      data: {
         name,
-        phone,
-        email,
-        timestamp: new Date().toISOString()
-      })
-    });
-    */
-
-    // Option 4: Using Nodemailer with SMTP
-    // First install: npm install nodemailer
-    // Then uncomment this section:
-    /*
-    const nodemailer = require('nodemailer');
-    
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
-      secure: true,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
+        email
       }
-    });
-    
-    await transporter.sendMail(emailContent);
-    */
-
-    // For testing, just log the data
-    console.log('New signup:', { name, phone, email });
-
-    // Send success response
-    res.status(200).json({ 
-      success: true, 
-      message: 'Sign up request received successfully' 
     });
 
   } catch (error) {
-    console.error('Error processing signup:', error);
-    res.status(500).json({ 
-      error: 'Failed to process sign up request' 
+    console.error('Signup error:', error);
+    return res.status(500).json({ 
+      success: false,
+      message: 'An error occurred. Please try again.' 
     });
   }
 }
+
+// Example integration with Twilio for SMS (uncomment and configure):
+/*
+import twilio from 'twilio';
+
+const twilioClient = twilio(
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
+);
+
+async function sendWelcomeSMS(phone, name) {
+  try {
+    await twilioClient.messages.create({
+      body: `Welcome to Rustlers Club, ${name}! Show this text for your first-time member bonus. Reply STOP to unsubscribe.`,
+      from: process.env.TWILIO_PHONE_NUMBER,
+      to: `+1${phone}`
+    });
+  } catch (error) {
+    console.error('SMS error:', error);
+  }
+}
+*/
+
+// Example integration with SendGrid for Email (uncomment and configure):
+/*
+import sgMail from '@sendgrid/mail';
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+async function sendWelcomeEmail(email, name) {
+  const msg = {
+    to: email,
+    from: 'welcome@rustlersclub.com',
+    subject: 'Welcome to Rustlers Club!',
+    text: `Hi ${name}, welcome to Rustlers Club...`,
+    html: `<h1>Welcome ${name}!</h1><p>Thank you for joining...</p>`,
+  };
+  
+  try {
+    await sgMail.send(msg);
+  } catch (error) {
+    console.error('Email error:', error);
+  }
+}
+*/
