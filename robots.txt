@@ -1,0 +1,10 @@
+# Rustlers Club Robots.txt
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://rustlersclub.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
