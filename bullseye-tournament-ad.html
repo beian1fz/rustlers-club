@@ -294,6 +294,13 @@
             .location-footer {
                 font-size: 12px;
             }
+            
+            .share-options {
+                right: -10px;
+                left: auto;
+                max-width: calc(100vw - 40px);
+                min-width: 250px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -312,6 +319,211 @@
             .card-stack {
                 transform: scale(0.6);
             }
+            
+            .operator-panel {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .share-toggle {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .format-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Operator Panel Styles */
+        .operator-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .share-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+            border: none;
+            font-size: 24px;
+        }
+        
+        .share-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .share-options {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background: rgba(26, 26, 26, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+            display: none;
+            min-width: 280px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .share-options.active {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .share-header {
+            color: #d4af37;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .format-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .format-btn {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .format-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+        }
+        
+        .format-btn.active {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a1a1a;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .instructions {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            color: #999;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        
+        /* Format-specific adjustments */
+        body.instagram-format .tournament-section {
+            aspect-ratio: 1/1;
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+        }
+        
+        body.instagram-story-format .tournament-section {
+            aspect-ratio: 9/16;
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        body.instagram-story-format .content {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        body.instagram-story-format .card-stack {
+            transform: scale(0.5);
+            margin-top: -50px;
+        }
+        
+        body.facebook-format .tournament-section {
+            aspect-ratio: 1200/630;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Copy notification */
+        .copy-notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a1a1a;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 2000;
+        }
+        
+        .copy-notification.show {
+            opacity: 1;
+        }
+        
+        /* Hide operator panel during screenshot */
+        body.capturing .operator-panel {
+            display: none !important;
         }
     </style>
 </head>
@@ -394,5 +606,186 @@
             </div>
         </div>
     </section>
+    
+    <!-- Operator Panel -->
+    <div class="operator-panel">
+        <button class="share-toggle" id="shareToggle">
+            <span>📤</span>
+        </button>
+        <div class="share-options" id="shareOptions">
+            <div class="share-header">📱 Social Media Optimizer</div>
+            
+            <div class="format-buttons">
+                <button class="format-btn active" data-format="default">
+                    Default View
+                </button>
+                <button class="format-btn" data-format="instagram">
+                    Instagram Post
+                </button>
+                <button class="format-btn" data-format="instagram-story">
+                    Instagram Story
+                </button>
+                <button class="format-btn" data-format="facebook">
+                    Facebook
+                </button>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="action-btn" id="screenshotBtn">
+                    <span>📸</span> Take Screenshot
+                </button>
+                <button class="action-btn" id="copyLinkBtn">
+                    <span>🔗</span> Copy Link
+                </button>
+            </div>
+            
+            <div class="instructions">
+                <strong>Quick Guide:</strong><br>
+                1. Select format for your social platform<br>
+                2. Click "Take Screenshot" to capture<br>
+                3. Save image & upload to social media<br>
+                4. Or copy link to share directly
+            </div>
+        </div>
+    </div>
+    
+    <div class="copy-notification" id="copyNotification">
+        Link Copied! 🎉
+    </div>
+    
+    <script>
+        // Share panel functionality
+        const shareToggle = document.getElementById('shareToggle');
+        const shareOptions = document.getElementById('shareOptions');
+        const formatButtons = document.querySelectorAll('.format-btn');
+        const screenshotBtn = document.getElementById('screenshotBtn');
+        const copyLinkBtn = document.getElementById('copyLinkBtn');
+        const copyNotification = document.getElementById('copyNotification');
+        
+        // Toggle share panel
+        shareToggle.addEventListener('click', () => {
+            shareOptions.classList.toggle('active');
+        });
+        
+        // Close panel when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.operator-panel')) {
+                shareOptions.classList.remove('active');
+            }
+        });
+        
+        // Format switching
+        formatButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                formatButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Remove all format classes from body
+                document.body.className = '';
+                
+                // Add new format class if not default
+                const format = btn.dataset.format;
+                if (format !== 'default') {
+                    document.body.classList.add(`${format}-format`);
+                }
+                
+                // Scroll to top for better screenshot
+                window.scrollTo(0, 0);
+            });
+        });
+        
+        // Screenshot functionality
+        screenshotBtn.addEventListener('click', async () => {
+            // Add capturing class to hide operator panel
+            document.body.classList.add('capturing');
+            
+            // Check if html2canvas is loaded
+            if (typeof html2canvas === 'undefined') {
+                // Load html2canvas library
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                document.head.appendChild(script);
+                
+                script.onload = () => {
+                    captureScreenshot();
+                };
+            } else {
+                captureScreenshot();
+            }
+        });
+        
+        function captureScreenshot() {
+            html2canvas(document.querySelector('.tournament-section'), {
+                backgroundColor: null,
+                scale: 2,
+                logging: false,
+                useCORS: true,
+                allowTaint: true
+            }).then(canvas => {
+                // Remove capturing class
+                document.body.classList.remove('capturing');
+                
+                // Convert to blob and download
+                canvas.toBlob(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'rustlers-tournament.png';
+                    link.click();
+                    URL.revokeObjectURL(url);
+                    
+                    // Show success message
+                    showNotification('Screenshot saved! 📸');
+                });
+            }).catch(err => {
+                document.body.classList.remove('capturing');
+                alert('Screenshot failed. Please try again or use your device\'s screenshot feature.');
+            });
+        }
+        
+        // Copy link functionality
+        copyLinkBtn.addEventListener('click', () => {
+            const url = window.location.href;
+            
+            // Try modern clipboard API first
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showNotification('Link Copied! 🎉');
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(url);
+                });
+            } else {
+                fallbackCopyTextToClipboard(url);
+            }
+        });
+        
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showNotification('Link Copied! 🎉');
+            } catch (err) {
+                alert('Failed to copy link. Please copy manually: ' + text);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+        
+        function showNotification(message) {
+            copyNotification.textContent = message;
+            copyNotification.classList.add('show');
+            setTimeout(() => {
+                copyNotification.classList.remove('show');
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
