@@ -214,17 +214,76 @@
         .card:nth-child(1) {
             transform: rotate(-15deg) translate(-20px, 0);
             color: #d4af37;
+            animation: float1 3s ease-in-out infinite;
         }
         
         .card:nth-child(2) {
             transform: rotate(5deg) translate(20px, -20px);
             color: #000;
+            animation: float2 3s ease-in-out infinite 0.5s;
         }
         
         .card:nth-child(3) {
             transform: rotate(15deg) translate(40px, 10px);
             background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
             color: #1a1a1a;
+            animation: float3 3s ease-in-out infinite 1s;
+        }
+        
+        /* Bullseye pulse animation */
+        .card:nth-child(3) .bullseye {
+            animation: pulse 2s ease-in-out infinite;
+            display: inline-block;
+        }
+        
+        /* Card hover effects */
+        .card-stack:hover .card:nth-child(1) {
+            transform: rotate(-18deg) translate(-25px, -5px);
+        }
+        
+        .card-stack:hover .card:nth-child(2) {
+            transform: rotate(3deg) translate(15px, -25px);
+        }
+        
+        .card-stack:hover .card:nth-child(3) {
+            transform: rotate(18deg) translate(45px, 15px) scale(1.05);
+        }
+        
+        /* Animation keyframes */
+        @keyframes float1 {
+            0%, 100% {
+                transform: rotate(-15deg) translate(-20px, 0);
+            }
+            50% {
+                transform: rotate(-15deg) translate(-20px, -10px);
+            }
+        }
+        
+        @keyframes float2 {
+            0%, 100% {
+                transform: rotate(5deg) translate(20px, -20px);
+            }
+            50% {
+                transform: rotate(5deg) translate(20px, -30px);
+            }
+        }
+        
+        @keyframes float3 {
+            0%, 100% {
+                transform: rotate(15deg) translate(40px, 10px);
+            }
+            50% {
+                transform: rotate(15deg) translate(40px, 0px);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
         }
         
         /* Location footer */
@@ -423,6 +482,13 @@
             height: 60px;
         }
         
+        /* Disable animations for social media formats */
+        body.instagram-format .card,
+        body.instagram-story-format .card,
+        body.facebook-format .card {
+            animation: none !important;
+        }
+        
         body.instagram-story-format .tournament-section {
             aspect-ratio: 9/16;
             max-width: 1080px;
@@ -509,17 +575,17 @@
             }
             
             .logo-wrapper {
-                height: 50px;
+                height: 70px;
                 margin-bottom: 15px;
             }
             
             .logo-container {
-                max-width: 160px;
-                height: 50px;
+                max-width: 200px;
+                height: 70px;
             }
             
             .logo-container img {
-                max-height: 50px;
+                max-height: 70px;
             }
             
             .event-badge {
@@ -556,6 +622,34 @@
                 width: 120px;
                 height: 168px;
                 font-size: 50px;
+            }
+            
+            /* Adjust animations for mobile */
+            @keyframes float1 {
+                0%, 100% {
+                    transform: rotate(-15deg) translate(-20px, 0) scale(0.6);
+                }
+                50% {
+                    transform: rotate(-15deg) translate(-20px, -8px) scale(0.6);
+                }
+            }
+            
+            @keyframes float2 {
+                0%, 100% {
+                    transform: rotate(5deg) translate(20px, -20px) scale(0.6);
+                }
+                50% {
+                    transform: rotate(5deg) translate(20px, -28px) scale(0.6);
+                }
+            }
+            
+            @keyframes float3 {
+                0%, 100% {
+                    transform: rotate(15deg) translate(40px, 10px) scale(0.6);
+                }
+                50% {
+                    transform: rotate(15deg) translate(40px, 2px) scale(0.6);
+                }
             }
             
             .tournament-details {
@@ -624,17 +718,17 @@
             }
             
             .logo-wrapper {
-                height: 40px;
+                height: 60px;
                 margin-bottom: 10px;
             }
             
             .logo-container {
-                max-width: 140px;
-                height: 40px;
+                max-width: 180px;
+                height: 60px;
             }
             
             .logo-container img {
-                max-height: 40px;
+                max-height: 60px;
             }
             
             .card-stack {
@@ -642,6 +736,34 @@
                 width: 150px;
                 height: 200px;
                 margin: -30px 0;
+            }
+            
+            /* Adjust animations for small mobile */
+            @keyframes float1 {
+                0%, 100% {
+                    transform: rotate(-15deg) translate(-20px, 0) scale(0.5);
+                }
+                50% {
+                    transform: rotate(-15deg) translate(-20px, -6px) scale(0.5);
+                }
+            }
+            
+            @keyframes float2 {
+                0%, 100% {
+                    transform: rotate(5deg) translate(20px, -20px) scale(0.5);
+                }
+                50% {
+                    transform: rotate(5deg) translate(20px, -26px) scale(0.5);
+                }
+            }
+            
+            @keyframes float3 {
+                0%, 100% {
+                    transform: rotate(15deg) translate(40px, 10px) scale(0.5);
+                }
+                50% {
+                    transform: rotate(15deg) translate(40px, 4px) scale(0.5);
+                }
             }
             
             .tournament-details {
@@ -725,7 +847,7 @@
                     <div class="card-stack">
                         <div class="card">♠</div>
                         <div class="card">♥</div>
-                        <div class="card">🎯</div>
+                        <div class="card"><span class="bullseye">🎯</span></div>
                     </div>
                 </div>
             </div>
