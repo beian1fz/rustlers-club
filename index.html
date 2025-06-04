@@ -201,6 +201,9 @@
             font-weight: 600;
             transition: all 0.3s ease;
             display: inline-block;
+            cursor: pointer;
+            border: none;
+            font-size: inherit;
         }
         
         .cta-button:hover {
@@ -214,6 +217,7 @@
             flex-direction: column;
             gap: 4px;
             cursor: pointer;
+            z-index: 1001;
         }
         
         .mobile-menu-toggle span {
@@ -221,6 +225,18 @@
             height: 2px;
             background: #fff;
             transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-toggle.active span:first-child {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-toggle.active span:last-child {
+            transform: rotate(-45deg) translate(6px, -6px);
         }
         
         /* Hero Section */
@@ -844,7 +860,20 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .nav-links {
-                display: none;
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(26, 26, 26, 0.98);
+                flex-direction: column;
+                gap: 20px;
+                padding: 40px 20px;
+                transition: left 0.3s ease;
+            }
+            
+            .nav-links.active {
+                left: 0;
             }
             
             .mobile-menu-toggle {
@@ -902,6 +931,14 @@
             
             .stars {
                 font-size: 20px;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
+            }
+            
+            .modal-header h2 {
+                font-size: 24px;
             }
         }
         
@@ -998,6 +1035,29 @@
             background: rgba(255, 255, 255, 0.08);
         }
         
+        .sms-consent {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+        
+        .sms-consent label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .sms-consent input[type="checkbox"] {
+            margin-top: 2px;
+            cursor: pointer;
+        }
+        
         .form-submit {
             width: 100%;
             background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
@@ -1068,8 +1128,6 @@
             0%, 100% { transform: rotate(-5deg) translateY(0); }
             50% { transform: rotate(5deg) translateY(-10px); }
         }
-        
-        .age-gate-overlay {
         
         .age-gate-overlay {
             position: fixed;
@@ -1344,11 +1402,11 @@
             </div>
             <div class="nav-links">
                 <a href="/">Home</a>
-                <a href="https://rustlersclub.cardopz.com/" target="_blank">Games</a>
-                <a href="https://rustlersclub.cardopz.com/" target="_blank">Tournament Schedule</a>
+                <a href="https://rustlersclub.cardopz.com/" target="_blank">Live Games & Schedule</a>
+                <a href="https://rustlersclub.cardopz.com/" target="_blank">All Tournaments</a>
                 <a href="/membership">Membership</a>
                 <a href="#about">About</a>
-                <a href="/" class="play-now-btn cta-button">Sign Up</a>
+                <button class="cta-button play-now-btn">Sign Up</button>
             </div>
             <div class="mobile-menu-toggle">
                 <span></span>
@@ -1440,19 +1498,6 @@
                     <span style="font-size: 12px;">Direct line to management</span>
                 </p>
             </div>
-        </div>
-    </section>
-
-    <!-- Hours and Reviews Widgets -->
-    <section class="info-widgets">
-        <!-- Hours Widget -->
-        <div id="hoursWidget" class="hours-widget">
-            <div class="hours-loading">Loading business hours...</div>
-        </div>
-        
-        <!-- Reviews Widget -->
-        <div id="reviewsWidget" class="reviews-widget">
-            <div class="hours-loading">Loading reviews...</div>
         </div>
     </section>
 
@@ -1615,7 +1660,7 @@
             <button class="modal-close" onclick="closeModal()">&times;</button>
             <div class="modal-header">
                 <h2><span class="gold">Get Started</span></h2>
-                <p>Sign up now and we'll send you a link to complete your membership</p>
+                <p>Sign up now for exclusive updates and offers</p>
             </div>
             <form id="signupForm">
                 <div class="form-group">
@@ -1629,6 +1674,12 @@
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                </div>
+                <div class="sms-consent">
+                    <label>
+                        <input type="checkbox" id="smsConsent" name="smsConsent" required>
+                        <span>I agree to receive text messages from Rustlers Club. Message frequency varies. Message and data rates may apply. Reply STOP to unsubscribe at any time.</span>
+                    </label>
                 </div>
                 <button type="submit" class="form-submit">Send Me Sign Up Link</button>
                 <div id="formMessage"></div>
@@ -1805,9 +1856,18 @@
             document.getElementById('formMessage').innerHTML = '';
         }
         
+        window.closeModal = closeModal; // Make closeModal available globally
+        
         // Close modal when clicking outside
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
                 closeModal();
             }
         });
@@ -1829,7 +1889,9 @@
             const formData = {
                 name: document.getElementById('name').value,
                 phone: document.getElementById('phone').value,
-                email: document.getElementById('email').value
+                email: document.getElementById('email').value,
+                smsConsent: document.getElementById('smsConsent').checked,
+                source: 'homepage'
             };
             
             try {
