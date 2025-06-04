@@ -67,40 +67,18 @@
             align-items: center;
         }
         
-        .logo-upload {
-            width: 200px;
-            height: 80px;
-            border: 2px dashed #d4af37;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #d4af37;
-            font-size: 14px;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            background: rgba(212, 175, 55, 0.1);
-            transition: all 0.3s ease;
+        .logo-container {
+            max-width: 220px;
+            max-height: 80px;
         }
         
-        .logo-upload:hover {
-            background: rgba(212, 175, 55, 0.2);
-            border-color: #f4d03f;
-        }
-        
-        .logo-upload input[type="file"] {
-            position: absolute;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-        
-        .logo-upload img {
+        .logo-container img {
             max-width: 100%;
             max-height: 100%;
+            width: auto;
+            height: auto;
             object-fit: contain;
+            filter: brightness(1.1);
         }
         
         /* Event badge */
@@ -335,45 +313,6 @@
                 transform: scale(0.6);
             }
         }
-        
-        /* Image upload functionality */
-        .logo-text {
-            font-weight: 500;
-        }
-        
-        .uploaded-logo {
-            display: none;
-        }
-        
-        .logo-upload.has-image {
-            border: none;
-            background: transparent;
-            cursor: default;
-            overflow: visible;
-            justify-content: flex-start;
-            align-items: flex-start;
-            width: auto;
-            height: auto;
-            pointer-events: none;
-        }
-        
-        .logo-upload.has-image:hover {
-            background: transparent;
-        }
-        
-        .logo-upload.has-image .logo-text {
-            display: none;
-        }
-        
-        .logo-upload.has-image .uploaded-logo {
-            display: block;
-            max-width: 220px;
-            max-height: 80px;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            filter: brightness(1.1);
-        }
     </style>
 </head>
 <body>
@@ -385,10 +324,8 @@
             <div class="content">
                 <div class="left-content">
                     <div class="logo-wrapper">
-                        <div class="logo-upload" id="logoUpload">
-                            <input type="file" id="logoInput" accept="image/*">
-                            <span class="logo-text">Click to add logo</span>
-                            <img class="uploaded-logo" id="uploadedLogo" alt="Logo">
+                        <div class="logo-container">
+                            <img src="rustlers-logo1.png" alt="Rustlers Club Logo">
                         </div>
                     </div>
                     
@@ -457,27 +394,5 @@
             </div>
         </div>
     </section>
-    
-    <script>
-        // Logo upload functionality
-        const logoInput = document.getElementById('logoInput');
-        const logoUpload = document.getElementById('logoUpload');
-        const uploadedLogo = document.getElementById('uploadedLogo');
-        
-        logoInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file && file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    uploadedLogo.src = e.target.result;
-                    logoUpload.classList.add('has-image');
-                    // Disable further uploads after logo is added
-                    logoInput.disabled = true;
-                    logoUpload.removeAttribute('title');
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
 </body>
 </html>
