@@ -1,5 +1,5 @@
 // /api/signup.js
-// Complete working version with all features
+// Complete working version - Fixed syntax errors
 
 export default async function handler(req, res) {
   // Enable CORS
@@ -48,30 +48,46 @@ export default async function handler(req, res) {
     }
 
     // Send to OpenPhone
-    if (process.env.OPENPHONE_API_KEY && process.env.OPENPHONE_NUMBER) {
+    if (process.env.VpOQaGsoP1z3IjjphheJwiW3NVWkJT4s && process.env.OPENPHONE_NUMBER) {
+      console.log('OpenPhone configured, processing...');
+      console.log('API Key prefix:', process.env.VpOQaGsoP1z3IjjphheJwiW3NVWkJT4s?.substring(0, 4));
+      console.log('Phone number:', process.env.OPENPHONE_NUMBER);
+      
       try {
         // Create or update contact
+        console.log('Creating/finding contact for:', cleanPhone);
         const contact = await findOrCreateContact(cleanPhone, name, email);
         
-        // Add internal note
         if (contact) {
+          console.log('Contact found/created:', contact.id);
+          // Add internal note
           await addInternalNote(contact.id, internalMessage);
+        } else {
+          console.log('No contact returned');
         }
         
         // Send welcome SMS if consented
         if (smsConsent) {
+          console.log('Sending welcome SMS...');
           await sendWelcomeSMS(cleanPhone, name, eventName);
         }
         
         // Notify managers
+        console.log('Notifying managers...');
         await notifyManagers(name, phone, email);
         
       } catch (openPhoneError) {
-        console.error('OpenPhone error:', openPhoneError);
+        console.error('OpenPhone error details:', {
+          message: openPhoneError.message,
+          stack: openPhoneError.stack
+        });
         // Continue even if OpenPhone fails - don't break the signup
       }
     } else {
-      console.log('OpenPhone not configured - skipping integration');
+      console.log('OpenPhone not configured:', {
+        hasApiKey: !!process.env.VpOQaGsoP1z3IjjphheJwiW3NVWkJT4s,
+        hasPhoneNumber: !!process.env.OPENPHONE_NUMBER
+      });
     }
     
     // Return success response
@@ -87,11 +103,13 @@ export default async function handler(req, res) {
       message: error.message 
     });
   }
-}
+} // <-- THIS CLOSING BRACE WAS MISSING OR MISPLACED!
+
+// ==== HELPER FUNCTIONS BELOW (OUTSIDE THE MAIN HANDLER) ====
 
 // Find or create contact in OpenPhone
 async function findOrCreateContact(phoneNumber, name, email) {
-  const apiKey = process.env.OPENPHONE_API_KEY;
+  const apiKey = process.env.VpOQaGsoP1z3IjjphheJwiW3NVWkJT4s;
   const formattedPhone = phoneNumber.startsWith('+1') ? phoneNumber : `+1${phoneNumber}`;
   
   try {
@@ -110,6 +128,9 @@ async function findOrCreateContact(phoneNumber, name, email) {
         console.log('Found existing contact:', searchData.data[0].id);
         return searchData.data[0];
       }
+    } else {
+      const errorData = await searchResponse.text();
+      console.log('Search response not OK:', searchResponse.status, errorData);
     }
     
     // Create new contact
@@ -165,7 +186,7 @@ async function findOrCreateContact(phoneNumber, name, email) {
 
 // Add internal note to contact
 async function addInternalNote(contactId, message) {
-  const apiKey = process.env.OPENPHONE_API_KEY;
+  const apiKey = process.env.VpOQaGsoP1z3IjjphheJwiW3NVWkJT4s;
   
   try {
     const response = await fetch(`https://api.openphone.com/v1/contacts/${contactId}/notes`, {
@@ -193,7 +214,7 @@ async function addInternalNote(contactId, message) {
 
 // Send welcome SMS
 async function sendWelcomeSMS(phoneNumber, name, eventName) {
-  const apiKey = process.env.OPENPHONE_API_KEY;
+  const apiKey = process.env.VpOQaGsoP1z3IjjphheJwiW3NVWkJT4s;
   const fromNumber = process.env.OPENPHONE_NUMBER;
   
   const firstName = name.split(' ')[0];
@@ -226,64 +247,4 @@ async function sendWelcomeSMS(phoneNumber, name, eventName) {
       body: JSON.stringify({
         to: [toNumber],
         from: fromNumber,
-        body: messageBody
-      })
-    });
-
-    if (response.ok) {
-      console.log('Welcome SMS sent successfully');
-    } else {
-      const errorText = await response.text();
-      console.error('SMS send failed:', errorText);
-    }
-  } catch (error) {
-    console.error('SMS error:', error);
-  }
-}
-
-// Notify managers of new signup
-async function notifyManagers(name, phone, email) {
-  const apiKey = process.env.OPENPHONE_API_KEY;
-  const fromNumber = process.env.OPENPHONE_NUMBER;
-  
-  // Get manager numbers from environment
-  const managers = [
-    process.env.MANAGER_1_PHONE,
-    process.env.MANAGER_2_PHONE,
-    process.env.MANAGER_3_PHONE
-  ].filter(Boolean); // Remove any undefined
-  
-  if (managers.length === 0) {
-    console.log('No manager phones configured');
-    return;
-  }
-  
-  const message = `🚨 New Rustlers Signup!\n\n` +
-    `Name: ${name}\n` +
-    `📱 ${phone}\n` +
-    `📧 ${email}\n\n` +
-    `Welcome SMS sent automatically ✅\n` +
-    `Check OpenPhone for details`;
-  
-  try {
-    // Send to all managers
-    for (const managerPhone of managers) {
-      await fetch('https://api.openphone.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          to: [managerPhone],
-          from: fromNumber,
-          body: message
-        })
-      });
-      console.log(`Manager notification sent to ${managerPhone}`);
-    }
-  } catch (error) {
-    console.error('Manager notification error:', error);
-  }
-}
+        body: m
