@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rustlers Club Bullseye Tournament</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .tournament-section {
+            width: 100%;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 60px 20px;
+        }
+        
+        /* Container for content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Background pattern */
+        .pattern-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.02) 35px, rgba(255,255,255,.02) 70px),
+                repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(255,255,255,.02) 35px, rgba(255,255,255,.02) 70px);
+            opacity: 0.3;
+        }
+        
+        /* Content wrapper */
+        .content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        
+        /* Left side - Main content */
+        .left-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        /* Logo area */
+        .logo-wrapper {
+            margin-bottom: 30px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-upload {
+            width: 200px;
+            height: 80px;
+            border: 2px dashed #d4af37;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            background: rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .logo-upload:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #f4d03f;
+        }
+        
+        .logo-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .logo-upload img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        /* Event badge */
+        .event-badge {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a1a1a;
+            padding: 8px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* Main headline */
+        h1 {
+            color: white;
+            font-size: clamp(36px, 8vw, 56px);
+            font-weight: 800;
+            margin: 0 0 15px 0;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+        
+        /* Date and time */
+        .datetime {
+            color: #ffffff;
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 600;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .datetime-icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a1a;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        /* Features list */
+        .features {
+            margin-bottom: 35px;
+        }
+        
+        .feature-item {
+            color: #e0e0e0;
+            font-size: clamp(16px, 2vw, 18px);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .checkmark {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a1a;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        /* Right side - Visual element */
+        .right-visual {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Decorative elements */
+        .card-stack {
+            position: relative;
+            width: 300px;
+            height: 400px;
+        }
+        
+        .card {
+            position: absolute;
+            width: 200px;
+            height: 280px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:nth-child(1) {
+            transform: rotate(-15deg) translate(-20px, 0);
+            color: #d4af37;
+        }
+        
+        .card:nth-child(2) {
+            transform: rotate(5deg) translate(20px, -20px);
+            color: #000;
+        }
+        
+        .card:nth-child(3) {
+            transform: rotate(15deg) translate(40px, 10px);
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a1a1a;
+        }
+        
+        /* Location footer */
+        .location-footer {
+            margin-top: 40px;
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        /* Glow effect */
+        .glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        
+        /* Tournament details grid */
+        .tournament-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .detail-item {
+            text-align: center;
+        }
+        
+        .detail-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 5px;
+        }
+        
+        .detail-label {
+            font-size: 14px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .tournament-section {
+                padding: 40px 20px;
+            }
+            
+            .content {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .card-stack {
+                transform: scale(0.7);
+                width: 210px;
+                height: 280px;
+            }
+            
+            .card {
+                width: 140px;
+                height: 196px;
+                font-size: 60px;
+            }
+            
+            .tournament-details {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .detail-value {
+                font-size: 24px;
+            }
+            
+            .location-footer {
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 32px;
+            }
+            
+            .datetime {
+                font-size: 20px;
+            }
+            
+            .feature-item {
+                font-size: 14px;
+            }
+            
+            .card-stack {
+                transform: scale(0.6);
+            }
+        }
+        
+        /* Image upload functionality */
+        .logo-text {
+            font-weight: 500;
+        }
+        
+        .uploaded-logo {
+            display: none;
+        }
+        
+        .logo-upload.has-image {
+            border: none;
+            background: transparent;
+            cursor: default;
+            overflow: visible;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: auto;
+            height: auto;
+            pointer-events: none;
+        }
+        
+        .logo-upload.has-image:hover {
+            background: transparent;
+        }
+        
+        .logo-upload.has-image .logo-text {
+            display: none;
+        }
+        
+        .logo-upload.has-image .uploaded-logo {
+            display: block;
+            max-width: 220px;
+            max-height: 80px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: brightness(1.1);
+        }
+    </style>
+</head>
+<body>
+    <section class="tournament-section">
+        <div class="pattern-overlay"></div>
+        <div class="glow"></div>
+        
+        <div class="container">
+            <div class="content">
+                <div class="left-content">
+                    <div class="logo-wrapper">
+                        <div class="logo-upload" id="logoUpload">
+                            <input type="file" id="logoInput" accept="image/*">
+                            <span class="logo-text">Click to add logo</span>
+                            <img class="uploaded-logo" id="uploadedLogo" alt="Logo">
+                        </div>
+                    </div>
+                    
+                    <div class="event-badge">Members-Only Tournament</div>
+                    
+                    <h1>
+                        BULLSEYE
+                        <span class="highlight">TOURNAMENT</span>
+                    </h1>
+                    
+                    <div class="datetime">
+                        <div class="datetime-icon">📅</div>
+                        <span>June 8th • 6PM</span>
+                    </div>
+                    
+                    <div class="features">
+                        <div class="feature-item">
+                            <div class="checkmark">✓</div>
+                            <span>Earn FREE entry by playing June 3-8</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="checkmark">✓</div>
+                            <span>18 hands per competitive round</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="checkmark">✓</div>
+                            <span>Top 2 players advance each round</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="checkmark">✓</div>
+                            <span>Exclusive member tournament format</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-visual">
+                    <div class="card-stack">
+                        <div class="card">♠</div>
+                        <div class="card">♥</div>
+                        <div class="card">🎯</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tournament-details">
+                <div class="detail-item">
+                    <div class="detail-value">$500</div>
+                    <div class="detail-label">Guaranteed</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-value">5K</div>
+                    <div class="detail-label">Starting Stack</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-value">18</div>
+                    <div class="detail-label">Hands Per Round</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-value">June 3-8</div>
+                    <div class="detail-label">Qualifying Period</div>
+                </div>
+            </div>
+            
+            <div class="location-footer">
+                📍 6436 NW Loop 410, San Antonio • Private Social Club • Members Only
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // Logo upload functionality
+        const logoInput = document.getElementById('logoInput');
+        const logoUpload = document.getElementById('logoUpload');
+        const uploadedLogo = document.getElementById('uploadedLogo');
+        
+        logoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedLogo.src = e.target.result;
+                    logoUpload.classList.add('has-image');
+                    // Disable further uploads after logo is added
+                    logoInput.disabled = true;
+                    logoUpload.removeAttribute('title');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
