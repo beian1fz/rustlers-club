@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Secure Poker Room | Rustlers Club San Antonio</title>
+    <meta name="description" content="Your privacy matters at Rustlers Club San Antonio. Secure poker gaming environment with professional staff. Better privacy than Poker Atlas tracking.">
+    <meta name="keywords" content="poker room privacy, secure poker san antonio, rustlers club privacy, safe poker room">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rustlersclub.com/privacy">
+    <meta property="og:title" content="Privacy Policy | Rustlers Club">
+    <meta property="og:description" content="Your privacy and security are our priority. Professional poker room environment in San Antonio.">
+    <meta property="og:image" content="https://rustlersclub.com/images/featured-image.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+        
+        .logo {
+            height: 50px;
+            cursor: pointer;
+        }
+        
+        .logo img {
+            height: 100%;
+            width: auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #d4af37;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a1a1a;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            font-size: inherit;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* Mobile menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-toggle.active span:first-child {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-toggle.active span:last-child {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        
+        /* Content */
+        .page-header {
+            margin-top: 80px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .page-header h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .page-header p {
+            color: #999;
+            font-size: 18px;
+        }
+        
+        .content-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            color: #d4af37;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .section-content {
+            background: rgba(26, 26, 26, 0.5);
+            border-left: 4px solid #d4af37;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .section-content h3 {
+            color: #d4af37;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .section-content p {
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+        
+        .section-content ul {
+            list-style-position: inside;
+            color: #ccc;
+            margin-left: 20px;
+        }
+        
+        .section-content li {
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            color: #d4af37;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 60px 20px 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            color: #666;
+        }
+        
+        /* Sign Up Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background: rgba(212, 175, 55, 0.3);
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .modal-header h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .modal-header p {
+            color: #999;
+            font-size: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #d4af37;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .sms-consent {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+        
+        .sms-consent label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .sms-consent input[type="checkbox"] {
+            margin-top: 2px;
+            cursor: pointer;
+        }
+        
+        .form-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a1a1a;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        .form-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .form-message {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .form-message.success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        .form-message.error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(26, 26, 26, 0.98);
+                flex-direction: column;
+                gap: 20px;
+                padding: 40px 20px;
+                transition: left 0.3s ease;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .section-content {
+                padding: 20px;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
+            }
+            
+            .modal-header h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="Rustlers Club - Secure San Antonio Poker">
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="https://rustlersclub.cardopz.com/" target="_blank">Live Games & Schedule</a>
+                <a href="https://rustlersclub.cardopz.com/" target="_blank">All Tournaments</a>
+                <a href="/membership">Membership</a>
+                <a href="/#about">About</a>
+                <button class="cta-button signup-btn">Sign Up</button>
+            </div>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Privacy Policy</h1>
+        <p>Last Updated: January 2025</p>
+    </div>
+
+    <!-- Content -->
+    <div class="content-section">
+        <div class="section-content">
+            <h3>Introduction</h3>
+            <p>Rustlers Club ("we," "our," or "us") respects the privacy of our members and visitors. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our facility or use our services.</p>
+        </div>
+
+        <div class="section-content">
+            <h3>Information We Collect</h3>
+            <p>We collect information that you provide directly to us, including:</p>
+            <ul>
+                <li><span class="highlight">Personal Information:</span> Name, date of birth, government-issued ID information</li>
+                <li><span class="highlight">Contact Information:</span> Phone number, email address (if provided)</li>
+                <li><span class="highlight">Membership Information:</span> Membership status, play history, point balance</li>
+                <li><span class="highlight">Security Information:</span> CCTV footage for security purposes</li>
+            </ul>
+        </div>
+
+        <div class="section-content">
+            <h3>How We Use Your Information</h3>
+            <p>We use the information we collect to:</p>
+            <ul>
+                <li>Verify age and identity for membership eligibility</li>
+                <li>Manage your membership and player account</li>
+                <li>Track gaming activity and point balances</li>
+                <li>Ensure security and prevent fraud</li>
+                <li>Communicate about tournaments, promotions, and club updates</li>
+                <li>Comply with legal obligations</li>
+            </ul>
+        </div>
+
+        <div class="section-content">
+            <h3>Information Sharing</h3>
+            <p>We do not sell, trade, or rent your personal information to third parties. We may share your information only in the following circumstances:</p>
+            <ul>
+                <li>With your consent</li>
+                <li>To comply with legal obligations or law enforcement requests</li>
+                <li>To protect the rights, property, or safety of Rustlers Club, our members, or others</li>
+                <li>With service providers who assist in our operations (under confidentiality agreements)</li>
+            </ul>
+        </div>
+
+        <div class="section-content">
+            <h3>Data Security</h3>
+            <p>We implement appropriate technical and organizational measures to protect your personal information, including:</p>
+            <ul>
+                <li>Secure storage of member records</li>
+                <li>Limited access to personal information (authorized personnel only)</li>
+                <li>Security cameras monitoring gaming areas</li>
+                <li>Regular security assessments</li>
+            </ul>
+        </div>
+
+        <div class="section-content">
+            <h3>Your Rights</h3>
+            <p>As a member, you have the right to:</p>
+            <ul>
+                <li>Access your personal information</li>
+                <li>Request corrections to inaccurate information</li>
+                <li>Opt-out of promotional communications</li>
+                <li>Request deletion of your information (subject to legal requirements)</li>
+            </ul>
+        </div>
+
+        <div class="section-content">
+            <h3>Cardopz Platform</h3>
+            <p>Our digital services are provided through Cardopz (rustlersclub.cardopz.com). When using these services, you are also subject to Cardopz's privacy policies. We encourage you to review their privacy practices.</p>
+        </div>
+
+        <div class="section-content">
+            <h3>Age Restriction</h3>
+            <p><span class="highlight">Rustlers Club is strictly 21+.</span> We do not knowingly collect or maintain information from individuals under 21 years of age.</p>
+        </div>
+
+        <div class="section-content">
+            <h3>Changes to This Policy</h3>
+            <p>We may update this Privacy Policy from time to time. We will notify members of any material changes by posting the new Privacy Policy at our facility and on our website.</p>
+        </div>
+
+        <div class="section-content">
+            <h3>Contact Us</h3>
+            <p>If you have questions about this Privacy Policy or our privacy practices, please contact us:</p>
+            <ul>
+                <li>Front Desk: <a href="tel:2109571550" style="color: #d4af37;">(210) 957-1550</a></li>
+                <li>Text: <a href="sms:7266008996" style="color: #d4af37;">(726) 600-8996</a></li>
+                <li>Visit: 6436 NW Loop 410, San Antonio, TX 78238</li>
+                <li>Social: Instagram @rustlersclub</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>📍 6436 NW Loop 410, San Antonio, TX 78238 • The Village at Ingram Park</p>
+            <p style="margin-top: 10px;">📞 <a href="tel:2109571550" style="color: #d4af37; text-decoration: none;">(210) 957-1550</a> • 💬 <a href="sms:7266008996" style="color: #d4af37; text-decoration: none;">(726) 600-8996</a></p>
+            <p style="margin-top: 10px;"><a href="/" style="color: #999; text-decoration: none;">Home</a> • <a href="/membership" style="color: #999; text-decoration: none;">Membership</a> • <a href="/terms" style="color: #999; text-decoration: none;">Terms & Conditions</a></p>
+            <p style="margin-top: 20px;">&copy; 2025 Rustlers Club. All rights reserved. | Private Social Gaming Club</p>
+        </div>
+    </footer>
+
+    <!-- Sign Up Modal -->
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <h2><span style="color: #d4af37;">Get Started</span></h2>
+                <p>Sign up now for exclusive updates and offers</p>
+            </div>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                </div>
+                <div class="sms-consent">
+                    <label>
+                        <input type="checkbox" id="smsConsent" name="smsConsent" required>
+                        <span>I agree to receive text messages from Rustlers Club. Message frequency varies. Message and data rates may apply. Reply STOP to unsubscribe at any time.</span>
+                    </label>
+                </div>
+                <button type="submit" class="form-submit">Send Me Sign Up Link</button>
+                <div id="formMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileToggle.classList.toggle('active');
+        });
+        
+        // Modal functionality
+        const modal = document.getElementById('signupModal');
+        const signupBtns = document.querySelectorAll('.signup-btn');
+        
+        function openModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById('formMessage').innerHTML = '';
+        }
+        
+        window.closeModal = closeModal; // Make closeModal available globally
+        
+        // Add click handlers to all signup buttons
+        signupBtns.forEach(btn => {
+            btn.addEventListener('click', openModal);
+        });
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+        
+        // Form submission
+        const signupForm = document.getElementById('signupForm');
+        const formMessage = document.getElementById('formMessage');
+        
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitButton = signupForm.querySelector('.form-submit');
+            const originalText = submitButton.textContent;
+            
+            // Disable button and show loading
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                smsConsent: document.getElementById('smsConsent').checked,
+                source: 'privacy-page'
+            };
+            
+            try {
+                // API endpoint for signup
+                const response = await fetch('https://rustlers-club.vercel.app/api/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    formMessage.className = 'form-message success';
+                    formMessage.innerHTML = '✓ Success! Check your email for the sign-up link.';
+                    signupForm.reset();
+                    
+                    // Close modal after 3 seconds
+                    setTimeout(() => {
+                        closeModal();
+                    }, 3000);
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch (error) {
+                formMessage.className = 'form-message error';
+                formMessage.innerHTML = '✗ Something went wrong. Please try again or call us at (210) 957-1550';
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            }
+        });
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
