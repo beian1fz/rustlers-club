@@ -1,7 +1,85 @@
-// ============================================
-// ADD THESE FUNCTIONS TO YOUR EXISTING signup.js
-// Put them at the bottom of your file, before the final closing }
-// ============================================
+// /api/signup.js
+
+export default async function handler(req, res) {
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  
+  try {
+    // Extract data from request body
+    const { name, phone, email, smsConsent, source, eventType, eventName } = req.body;
+    
+    // Validate required fields
+    if (!name || !phone || !email) {
+      return res.status(400).json({ 
+        error: 'Missing required fields',
+        required: ['name', 'phone', 'email'] 
+      });
+    }
+    
+    // Clean phone number (remove non-digits)
+    const cleanPhone = phone.replace(/\D/g, '');
+    
+    // Format internal message for OpenPhone
+    let internalMessage = `🎯 New Rustlers Club Signup!\n\n`;
+    internalMessage += `Name: ${name}\n`;
+    internalMessage += `Phone: ${phone}\n`;
+    internalMessage += `Email: ${email}\n`;
+    internalMessage += `SMS Consent: ${smsConsent ? 'Yes' : 'No'}\n`;
+    internalMessage += `Source: ${source || 'website'}\n`;
+    
+    if (eventType && eventName) {
+      internalMessage += `\n🎮 Interested in: ${eventName}\n`;
+      internalMessage += `Type: ${eventType}\n`;
+    }
+
+    // Send to OpenPhone
+    if (process.env.OPENPHONE_API_KEY && process.env.OPENPHONE_NUMBER) {
+      try {
+        // Create or update contact
+        const contact = await findOrCreateContact(cleanPhone, name, email);
+        
+        // Add internal note
+        if (contact) {
+          await addInternalNote(contact.id, internalMessage);
+        }
+        
+        // Send welcome SMS if consented
+        if (smsConsent) {
+          await sendWelcomeSMS(cleanPhone, name, eventName);
+        }
+      } catch (openPhoneError) {
+        console.error('OpenPhone error:', openPhoneError);
+        // Continue even if OpenPhone fails
+      }
+    }
+    
+    // Return success response
+    return res.status(200).json({ 
+      success: true,
+      message: 'Signup successful! Check your phone for a welcome message.'
+    });
+    
+  } catch (error) {
+    console.error('Signup error:', error);
+    return res.status(500).json({ 
+      error: 'Internal server error',
+      message: error.message 
+    });
+  }
+}
+
+// Helper Functions (put these OUTSIDE the main handler)
 
 // Find or create contact in OpenPhone
 async function findOrCreateContact(phoneNumber, name, email) {
@@ -142,41 +220,3 @@ async function sendWelcomeSMS(phoneNumber, name, eventName) {
     console.error('SMS error:', error);
   }
 }
-
-// ============================================
-// ALSO ADD THIS CODE INSIDE YOUR MAIN HANDLER FUNCTION
-// Right after your validation, add this:
-// ============================================
-
-    // Format internal message for OpenPhone
-    let internalMessage = `🎯 New Rustlers Club Signup!\n\n`;
-    internalMessage += `Name: ${name}\n`;
-    internalMessage += `Phone: ${phone}\n`;
-    internalMessage += `Email: ${email}\n`;
-    internalMessage += `SMS Consent: ${smsConsent ? 'Yes' : 'No'}\n`;
-    
-    if (eventType && eventName) {
-      internalMessage += `\n🎮 Interested in: ${eventName}\n`;
-      internalMessage += `Type: ${eventType}\n`;
-    }
-
-    // Send to OpenPhone
-    if (process.env.OPENPHONE_API_KEY && process.env.OPENPHONE_NUMBER) {
-      try {
-        // Create or update contact
-        const contact = await findOrCreateContact(cleanPhone, name, email);
-        
-        // Add internal note
-        if (contact) {
-          await addInternalNote(contact.id, internalMessage);
-        }
-        
-        // Send welcome SMS if consented
-        if (smsConsent) {
-          await sendWelcomeSMS(cleanPhone, name, eventName);
-        }
-      } catch (openPhoneError) {
-        console.error('OpenPhone error:', openPhoneError);
-        // Continue even if OpenPhone fails
-      }
-    }
